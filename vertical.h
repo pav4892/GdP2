@@ -3,6 +3,8 @@
 
 #include <string>
 #include <vector>
+#include "ufosim.h"
+
 using namespace std;
 
 class Vertical {
@@ -10,7 +12,7 @@ class Vertical {
   private:
     static string type;
     string id;
-    //Ufosim* sim;
+    Ufosim* sim;
   
   public:
     Vertical(const string& pld);
@@ -20,7 +22,7 @@ class Vertical {
     vector<float> getPosition() const;
     float getFtime() const;
     void flyToDest(float x, float y, float height, int speed) const;
-    vector<float> waypoint(float x1, float y1, float x2, float y2, float h, float phi);
+    vector<float> wayPoint(float x1, float y1, float x2, float y2, float h, float phi);
 };
 
 #endif

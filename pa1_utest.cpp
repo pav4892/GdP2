@@ -28,7 +28,7 @@ BOOST_AUTO_TEST_CASE(initially)
 
     BOOST_CHECK(vert.getFtime() == 0.0);
 }
-/*
+
 BOOST_AUTO_TEST_CASE(after_one_flight)
 {
     Vertical vert("r2d2");
@@ -65,7 +65,7 @@ BOOST_AUTO_TEST_CASE(after_two_flights)
         BOOST_CHECK(vert.getPosition()[2] == 0.0);
     }
 }
-
+/*
 bool check_waypoint(const float x1, const float y1,
                     const float x2, const float y2,
                     const float h, const float phi)
@@ -111,11 +111,12 @@ BOOST_AUTO_TEST_CASE(waypoint)
     // 4th quadrant to 4th quadrant, north east, close to D (0.977121)
     BOOST_CHECK(check_waypoint(20.0, -20.0, 35.0, -13.7f, 8.1f, 27.0001f));
 }
+*/
 
 BOOST_AUTO_TEST_CASE(type_checks)
 {
     BOOST_CHECK(std::is_class_v<Vertical>);
 }
-*/
+
 
 BOOST_AUTO_TEST_SUITE_END()
