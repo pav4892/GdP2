@@ -43,7 +43,8 @@ vector<float> Vertical::waypoint(float x1, float y1, float x2, float y2, float h
 
   return coord;
 }
-
+// main can't be included when running unit-tests
+/*
 int main() {
   Vertical vertA("stringo");
   cout << vertA.getType() << "\n"; 
@@ -59,3 +60,4 @@ int main() {
   }
   return 0;
 }
+*/

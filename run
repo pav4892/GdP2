@@ -1,0 +1,5 @@
+#!/bin/bash
+
+#Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
+
+g++ vertical.cpp pa1_utest.cpp -o unittest -lboost_unit_test_framework && ./unittest

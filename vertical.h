@@ -20,7 +20,7 @@ class Vertical {
     vector<float> getPosition() const;
     float getFtime() const;
     void flyToDest(float x, float y, float height, int speed) const;
-    static vector<float> waypoint(float x1, float y1, float x2, float y2, float h, float phi);
+    vector<float> waypoint(float x1, float y1, float x2, float y2, float h, float phi);
 };
 
 #endif
