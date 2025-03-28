@@ -40,7 +40,7 @@ float Vertical::getFtime() const {
   return ftime;
 }
 
-void Vertical::flyToDest(float x, float y, float height, int speed) const {
+void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
   sim->flyTo(sim->getX(), sim->getY(), height, speed, 0);
   sim->flyTo(x, y, height, speed, 0);
   sim->flyTo(x, y, 0.0, speed, 0);
@@ -74,28 +74,28 @@ vector<float> Vertical::wayPoint(float x1, float y1, float x2, float y2, float h
   return coord;
 }
 */
-vector<float> Vertical::wayPoint(float x1, float y1, float x2, float y2, float h, float phi) {
+vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
 
   vector<float> coord(2);
 
 
-  float phi_rad = phi * M_PI / 180.0;
+  const float phi_rad = phi * M_PI / 180.0;
 
   // Direction vector AD
-  float dx = x2 - x1;
-  float dy = y2 - y1;
+  const float dx = x2 - x1;
+  const float dy = y2 - y1;
 
   // Normalize direction
-  float length = sqrt(dx * dx + dy * dy);
-  float ux = dx / length;
-  float uy = dy / length;
+  const float length = sqrt(dx * dx + dy * dy);
+  const float ux = dx / length;
+  const float uy = dy / length;
 
   // Length of AB from height and angle
-  float AB = h / tan(phi_rad);
+  const float AB = h / tan(phi_rad);
 
   // Compute point B = A + AB * normalized direction
-  float bx = x1 + AB * ux;
-  float by = y1 + AB * uy;
+  const float bx = x1 + AB * ux;
+  const float by = y1 + AB * uy;
 
   //Ziel: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
 

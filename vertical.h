@@ -21,8 +21,8 @@ class Vertical {
     string getId() const;
     vector<float> getPosition() const;
     float getFtime() const;
-    void flyToDest(float x, float y, float height, int speed) const;
-    static vector<float> wayPoint(float x1, float y1, float x2, float y2, float h, float phi);
+    void flyToDest(const float x, const float y, const float height, const int speed) const;
+    static vector<float> wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi);
 };
 
 #endif
