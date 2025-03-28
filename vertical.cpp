@@ -46,35 +46,9 @@ void Vertical::flyToDest(const float x, const float y, const float height, const
   sim->flyTo(x, y, 0.0, speed, 0);
 };
 
-/*
-vector<float> Vertical::wayPoint(float x1, float y1, float x2, float y2, float h, float phi) {
-  float phi_rad = phi * M_PI / 180.0;
-  
-  vector<float> coord(2);
-
-
-  float<vector> A = coord(2);
-  coord[0] = x1;
-  coord[1] = y1;
-
-  float<vector> D = coord(2);
-  coord[0] = x2;
-  coord[1] = y2;
-
-  float<vector> Richtung = coord(2);
-
-
-
-  //Ziel: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
-
-    coord[0] = x1 + h * cos(phi_rad);  // x-Koordinate von B
-    coord[1] = y1 + h * sin(phi_rad);  // y-Koordinate von B
-
-
-  return coord;
-}
-*/
 vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
+
+    //Ziel der funktion: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
 
   vector<float> coord(2);
 
@@ -93,11 +67,9 @@ vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2,
   // Length of AB from height and angle
   const float AB = h / tan(phi_rad);
 
-  // Compute point B = A + AB * normalized direction
+  // Calc the bx and by via offset + dir vector thing
   const float bx = x1 + AB * ux;
   const float by = y1 + AB * uy;
-
-  //Ziel: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
 
   coord[0] = bx;  // x-Koordinate von B
   coord[1] = by;  // y-Koordinate von B
@@ -108,7 +80,7 @@ vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2,
 }
 
 
-/*
+/* Commented out because else the unit tests won't run. This is a old version that doesntq do any ufosim stuff yet, just tested class functionality before I knew how to use the boost stuff
 int main() {
   Vertical vertA("stringo");
   cout << vertA.getType() << "\n"; 
