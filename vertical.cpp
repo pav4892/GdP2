@@ -33,12 +33,12 @@ const vector<float> Vertical::getPosition() const {
   return coord;
 }
 
-const float Vertical::getFtime() const {
+float Vertical::getFtime() const {
   const float ftime = sim->getFtime();
   return ftime;
 }
 
-const void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
+void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
   sim->flyTo(sim->getX(), sim->getY(), height, speed, 0);
   sim->flyTo(x, y, height, speed, 0);
   sim->flyTo(x, y, 0.0, speed, 0);
