@@ -1,6 +1,4 @@
-#include <iostream>
 #include "vertical.h"
-#include "ufosim.h"
 #include <string>
 #include <vector>
 #include <cmath>
@@ -16,17 +14,17 @@ Vertical::~Vertical() {
   delete sim;
 };
 
-string Vertical::type = "vertical";
+const string Vertical::type = "vertical";
 
-string Vertical::getType() {
+const string Vertical::getType() {
   return type;
 }
 
-string Vertical::getId() const {
+const string& Vertical::getId() const {
   return id;
 }
 
-vector<float> Vertical::getPosition() const {
+const vector<float> Vertical::getPosition() const {
   vector<float> coord(3);
   coord[0] = sim->getX();
   coord[1] = sim->getY();
@@ -35,18 +33,18 @@ vector<float> Vertical::getPosition() const {
   return coord;
 }
 
-float Vertical::getFtime() const {
-  float ftime = sim->getFtime();
+const float Vertical::getFtime() const {
+  const float ftime = sim->getFtime();
   return ftime;
 }
 
-void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
+const void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
   sim->flyTo(sim->getX(), sim->getY(), height, speed, 0);
   sim->flyTo(x, y, height, speed, 0);
   sim->flyTo(x, y, 0.0, speed, 0);
 };
 
-vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
+const vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
 
     //Ziel der funktion: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
 
@@ -76,11 +74,10 @@ vector<float> Vertical::wayPoint(const float x1, const float y1, const float x2,
 
   
   return coord;
-
 }
 
 
-/* Commented out because else the unit tests won't run. This is a old version that doesntq do any ufosim stuff yet, just tested class functionality before I knew how to use the boost stuff
+/* Commented out because else the unit tests won't run. This is a old version that doesnt do any ufosim stuff yet, just tested class functionality before I knew how to use the boost stuff
 int main() {
   Vertical vertA("stringo");
   cout << vertA.getType() << "\n"; 
