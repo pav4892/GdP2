@@ -1,7 +1,9 @@
 #include "vertical.h"
+#include "ufo.h"
 #include <string>
 #include <vector>
 #include <cmath>
+
 using namespace std;
 
 Ufo::Ufo(const string& pld) {

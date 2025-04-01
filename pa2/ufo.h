@@ -1,9 +1,10 @@
-#ifndef VERTICAL_H
-#define VERTICAL_H
+#ifndef UFO_H
+#define UFO_H
 
 #include <string>
 #include <vector>
 #include "ufosim.h"
+#include "vertical.h"
 
 using namespace std;
 
@@ -11,6 +12,7 @@ class Ufo {
   
   private:
     string id;
+  protected:          // Weil # in Klassendiagram
     Ufosim* sim;
   
   public:
