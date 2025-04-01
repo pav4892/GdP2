@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Vertical {
+class Ufo {
   
   private:
     string id;
@@ -15,8 +15,8 @@ class Vertical {
   
   public:
     //Constructors and destructors don't have a return value ever so making anything const here besides the paramters passed in doesnt make sense....
-    Vertical(const string& pld);
-    virtual ~Vertical();
+    Ufo(const string& pld);
+    virtual ~Ufo();
     //The first const means that it will return a const string and the one at the end means that the function wont modify the class or object it i s part of 
     const string& getId() const;
     const vector<float> getPosition() const;

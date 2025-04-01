@@ -4,11 +4,7 @@
 #include <cmath>
 using namespace std;
 
-Vertical::Vertical(const string& pld) {
-  id = pld;
-  Ufosim::setSpeedup(4);
-  sim = new Ufosim();
-}
+Vertical::Vertical(const string& pld) {};
 
 Vertical::~Vertical() {
   delete sim;
