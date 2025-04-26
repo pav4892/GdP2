@@ -4,7 +4,6 @@
 #include <string>
 #include <vector>
 #include "ufosim.h"
-#include "vertical.h"
 
 using namespace std;
 
@@ -23,8 +22,9 @@ class Ufo {
     const string& getId() const;
     const vector<float> getPosition() const;
     float getFtime() const;
-    //This will then be inherited and overwritten by ufo class I think
-    virtual void flyToDest(const float x, const float y, const float height, const int speed) const;
+    //This will then be inherited and overwritten by ufo class I think. Yes it is virtual so we dont define it in ufo.cpp but simply override it in vertical.cpp because
+    //the virtical class inherits the Ufo class in vertical.h
+    virtual void flyToDest(const float x, const float y, const float height, const int speed) const = 0;
     static const vector<float> wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi);
 };
 

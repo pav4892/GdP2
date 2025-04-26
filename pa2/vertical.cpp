@@ -3,13 +3,19 @@
 #include <string>
 #include <vector>
 #include <cmath>
+
 using namespace std;
 
-//Vertical::Vertical(const string& pld) {};
-Vertical::Vertical(){};
+//If a class inherits another class the Constructor of the class that is inherited needs to be noted here as follows
+Vertical::Vertical(const string& pld) : Ufo(pld) {
+  string a = pld;
+};
+
+/*
 Vertical::~Vertical() {
   delete sim;
 };
+*/
 
 //Macht keinen Sinn das das noch da ist
 

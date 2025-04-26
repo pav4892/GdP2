@@ -36,7 +36,7 @@ float Ufo::getFtime() const {
 
 const vector<float> Ufo::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
 
-    //Ziel der funktion: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
+  //Ziel der funktion: B(coord float vector hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt
 
   vector<float> coord(2);
 

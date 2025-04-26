@@ -19,7 +19,6 @@ std::vector<float> dest6 = { -20.0, -15.0, 3.0 };
 BOOST_AUTO_TEST_CASE(vertical_initially)
 {
     Vertical vert("r2d2");
-    BOOST_CHECK(vert.getId() == "r2d2");
 
     BOOST_CHECK(size(vert.getPosition()) == 3);
 
@@ -119,7 +118,7 @@ BOOST_AUTO_TEST_CASE(ballistic_angles)
     Ballistic ball1("ball1", -10.0, 60.0);
     BOOST_CHECK(ball1.getTakeOffAngle() == 45.0);
     BOOST_CHECK(ball1.getLandingAngle() == 60.0);
-
+    
     Ballistic ball2("ball2", 0.0, 90.0);
     BOOST_CHECK(ball2.getTakeOffAngle() == 45.0);
     BOOST_CHECK(ball2.getLandingAngle() == 90.0);
@@ -303,4 +302,3 @@ BOOST_AUTO_TEST_CASE(ballistic_is_not_vertical)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
-

@@ -2,18 +2,20 @@
 #include "ufo.h"
 #include "ufosim.h"
 #include <vector>
+#include <iostream>
 
 using namespace std;
 
-Ballistic::Ballistic(const string& pld, const float pTakeOffAngle, const float pLandingAngle) { 
+//If a class inherits another class the Constructor of the class that is inherited needs to be noted here as follows
+Ballistic::Ballistic(const string& pld, const float pTakeOffAngle, const float pLandingAngle) : Ufo(pld) { 
 
-  if(0 < takeOffAngle <= 90) {
+  if(0 < pTakeOffAngle && pTakeOffAngle <= 90) {
     takeOffAngle = pTakeOffAngle;
   } else {
     takeOffAngle = 45.0;
   }
 
-  if(0 < landingAngle <= 90) {
+  if(0 < pLandingAngle && pLandingAngle <= 90) {
     landingAngle = pLandingAngle;
   } else {
     landingAngle = 45.0;
@@ -44,7 +46,7 @@ void Ballistic::flyToDest(const float x, const float y, const float height, cons
   float x2 = secondWaypoint(x, y, height)[0];
   float y2 = secondWaypoint(x, y, height)[1];
   sim->flyTo(x1, y1, height, speed, speed);
-  sim->flyTo(x1, y1, height, speed, speed);
-  sim->flyTo(x1, y1, height, speed, speed);
+  sim->flyTo(x2, y2, height, speed, speed);
+  sim->flyTo(x, y, height, speed, speed);
 };
 

@@ -2,4 +2,4 @@
 
 #Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
 
-g++ -Wall -std=c++20 ufo.cpp vertical.cpp ufosim.cpp pa2_utest.cpp -o unittest -lboost_unit_test_framework && ./unittest
+g++ -Wall -std=c++20 ballistic.cpp ufo.cpp vertical.cpp ufosim.cpp pa2_utest.cpp -o unittest -lboost_unit_test_framework && ./unittest
