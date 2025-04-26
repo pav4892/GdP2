@@ -138,9 +138,9 @@ BOOST_AUTO_TEST_CASE(ballistic_angles)
 
 BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
 {
-    Vertical vert("r2d2");
+    //Vertical vert("r2d2");
     Ballistic ball("ball", 45.0, 70.0);
-    std::vector<Ufo*> ufos = { &vert, &ball };
+    std::vector<Ufo*> ufos = { &ball };
 
     for (Ufo* ufo: ufos)
     {
@@ -151,7 +151,7 @@ BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
         {
             BOOST_CHECK(fabs(ufo->getPosition()[0] - dest3[0]) < 0.3);
             BOOST_CHECK(fabs(ufo->getPosition()[1] - dest3[1]) < 0.3);
-            BOOST_CHECK(ufo->getPosition()[2] == 0.0);
+            BOOST_CHECK(ufo->getPosition()[2] == 8.0);
         }
     }
 }

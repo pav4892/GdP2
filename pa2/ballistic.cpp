@@ -47,6 +47,6 @@ void Ballistic::flyToDest(const float x, const float y, const float height, cons
   float y2 = secondWaypoint(x, y, height)[1];
   sim->flyTo(x1, y1, height, speed, speed);
   sim->flyTo(x2, y2, height, speed, speed);
-  sim->flyTo(x, y, height, speed, speed);
+  sim->flyTo(x, y, 0.0f, speed, speed);
 };
 
