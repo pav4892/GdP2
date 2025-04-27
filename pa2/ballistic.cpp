@@ -9,6 +9,11 @@ using namespace std;
 //If a class inherits another class the Constructor of the class that is inherited needs to be noted here as follows
 Ballistic::Ballistic(const string& pld, const float pTakeOffAngle, const float pLandingAngle) : Ufo(pld) { 
 
+
+  initialPosPreWaypointMove[0] = sim->getX();
+  initialPosPreWaypointMove[1] = sim->getY();
+
+
   if(0 < pTakeOffAngle && pTakeOffAngle <= 90) {
     takeOffAngle = pTakeOffAngle;
   } else {
@@ -32,17 +37,14 @@ const float Ballistic::getLandingAngle() const {
     return landingAngle;
 };
 
-vector<float> initialPosPreWaypointMove = {0.0f, 0.0f};
-
 const vector<float> Ballistic::firstWaypoint(const float x, const float y, const float height) const {
-  initialPosPreWaypointMove[0] = sim->getX();
-  initialPosPreWaypointMove[1] = sim->getY();
-  return wayPoint(sim->getX(), sim->getY(), x, y, height, takeOffAngle); 
+    return wayPoint(sim->getX(), sim->getY(), x, y, height, takeOffAngle); 
 };
 
 const vector<float> Ballistic::secondWaypoint(const float x, const float y, const float height) const {
   //return wayPoint(sim->getX(), sim->getY(), x, y, height, landingAngle); 
-  return wayPoint(x, y, initialPosPreWaypointMove[0], initialPosPreWaypointMove[1], height, landingAngle); 
+  //return wayPoint(x, y, initialPosPreWaypointMove[0], initialPosPreWaypointMove[1], height, landingAngle); 
+  return wayPoint(x, y, sim->getX(), sim->getY(), height, landingAngle); 
 };
 
 void Ballistic::flyToDest(const float x, const float y, const float height, const int speed) const {
@@ -52,6 +54,6 @@ void Ballistic::flyToDest(const float x, const float y, const float height, cons
   float y2 = secondWaypoint(x, y, height)[1];
   sim->flyTo(x1, y1, height, speed, speed);
   sim->flyTo(x2, y2, height, speed, speed);
-  sim->flyTo(x, y, height, speed, speed);
+  sim->flyTo(x, y, 0.0, speed, 0.0);
 };
 

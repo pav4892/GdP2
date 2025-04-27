@@ -19,6 +19,7 @@ std::vector<float> dest6 = { -20.0, -15.0, 3.0 };
 BOOST_AUTO_TEST_CASE(vertical_initially)
 {
     Vertical vert("r2d2");
+    BOOST_CHECK(vert.getId() == "r2d2");
 
     BOOST_CHECK(size(vert.getPosition()) == 3);
 
@@ -77,40 +78,47 @@ bool check_waypoint(const float x1, const float y1,
 
 BOOST_AUTO_TEST_CASE(waypoint)
 {
-    // basic tests
-    std::vector<float> B = Ufo::wayPoint(2.0, 0.0, 100.3f, 0.0, 10.0, 45.0);
-    BOOST_CHECK(fabs(B[0] - 12.0) < 0.001);
-    BOOST_CHECK(fabs(B[1] - 0.0) < 0.001);
-    B = Ufo::wayPoint(0.0, -20.0, 0.0, 55.5, 10.0, 45.0);
-    BOOST_CHECK(fabs(B[0] - 0.0) < 0.001);
-    BOOST_CHECK(fabs(B[1] - -10.0) < 0.001);
+    // wayPoint should return two values
+    std::vector<float> B = Vertical::wayPoint(2.0, 0.0, 100.3f, 0.0, 10.0, 45.0);
+    BOOST_CHECK(size(B) == 2);
 
-    // legacy tests
-    B = Ufo::wayPoint(0.0, 0.0, 30.0, 30.0, 8.0, 45.0);
-    BOOST_CHECK(fabs(B[0] - 5.65685) < 0.001);
-    BOOST_CHECK(fabs(B[1] - 5.65685) < 0.001);
-    // 1st quadrant to 1st quadrant, north east, near A (0.188562)
-    BOOST_CHECK(check_waypoint(0.0, 0.0, 30.0, 30.0, 8.0, 45.0));
+    if (size(B) == 2)
+    {
+        // basic tests
+        std::vector<float> B = Ufo::wayPoint(2.0, 0.0, 100.3f, 0.0, 10.0, 45.0);
+        BOOST_CHECK(fabs(B[0] - 12.0) < 0.001);
+        BOOST_CHECK(fabs(B[1] - 0.0) < 0.001);
+        B = Ufo::wayPoint(0.0, -20.0, 0.0, 55.5, 10.0, 45.0);
+        BOOST_CHECK(fabs(B[0] - 0.0) < 0.001);
+        BOOST_CHECK(fabs(B[1] - -10.0) < 0.001);
 
-    B = Ufo::wayPoint(0.0, 0.0, 10.0, 20.0, 8.0, 45.0);
-    BOOST_CHECK(fabs(B[0] - 3.57771) < 0.001);
-    BOOST_CHECK(fabs(B[1] - 7.15542) < 0.001);
-    // 1st quadrant to 1st quadrant, north east, between A and D (0.357771)
-    BOOST_CHECK(check_waypoint(0.0, 0.0, 10.0, 20.0, 8.0, 45.0));
+        // legacy tests
+        B = Ufo::wayPoint(0.0, 0.0, 30.0, 30.0, 8.0, 45.0);
+        BOOST_CHECK(fabs(B[0] - 5.65685) < 0.001);
+        BOOST_CHECK(fabs(B[1] - 5.65685) < 0.001);
+        // 1st quadrant to 1st quadrant, north east, near A (0.188562)
+        BOOST_CHECK(check_waypoint(0.0, 0.0, 30.0, 30.0, 8.0, 45.0));
 
-    // more tests
-    // pos. x-axis to pos. x-axis, east, near A (0.101729)
-    BOOST_CHECK(check_waypoint(2.0, 0.0, 100.3f, 0.0, 10.0, 45.0));
-    // neg. y-axis to pos. y-axis, north, near A (0.13245)
-    BOOST_CHECK(check_waypoint(0.0, -20.0, 0.0, 55.5, 10.0, 45.0));
-    // 3rd quadrant to 1st quadrant, east, far behind D (238.772)
-    BOOST_CHECK(check_waypoint(-11.9f, 1.5, 0.1f, 1.4f, 5.001f, 0.1f));
-    // 3rd quadrant to 4th quadrant, south, near A (0.107593)
-    BOOST_CHECK(check_waypoint(-11.9f, 1.5, -12.0, -100.0, 35.99f, 73.12f));
-    // 3rd quadrant to 3rd quadrant, north, close to A (0.0058055)
-    BOOST_CHECK(check_waypoint(-11.9f, 1.5, -11.9f, 1.51f, 3.333f, 89.999f));
-    // 4th quadrant to 4th quadrant, north east, close to D (0.977121)
-    BOOST_CHECK(check_waypoint(20.0, -20.0, 35.0, -13.7f, 8.1f, 27.0001f));
+        B = Ufo::wayPoint(0.0, 0.0, 10.0, 20.0, 8.0, 45.0);
+        BOOST_CHECK(fabs(B[0] - 3.57771) < 0.001);
+        BOOST_CHECK(fabs(B[1] - 7.15542) < 0.001);
+        // 1st quadrant to 1st quadrant, north east, between A and D (0.357771)
+        BOOST_CHECK(check_waypoint(0.0, 0.0, 10.0, 20.0, 8.0, 45.0));
+
+        // more tests
+        // pos. x-axis to pos. x-axis, east, near A (0.101729)
+        BOOST_CHECK(check_waypoint(2.0, 0.0, 100.3f, 0.0, 10.0, 45.0));
+        // neg. y-axis to pos. y-axis, north, near A (0.13245)
+        BOOST_CHECK(check_waypoint(0.0, -20.0, 0.0, 55.5, 10.0, 45.0));
+        // 3rd quadrant to 1st quadrant, east, far behind D (238.772)
+        BOOST_CHECK(check_waypoint(-11.9f, 1.5, 0.1f, 1.4f, 5.001f, 0.1f));
+        // 3rd quadrant to 4th quadrant, south, near A (0.107593)
+        BOOST_CHECK(check_waypoint(-11.9f, 1.5, -12.0, -100.0, 35.99f, 73.12f));
+        // 3rd quadrant to 3rd quadrant, north, close to A (0.0058055)
+        BOOST_CHECK(check_waypoint(-11.9f, 1.5, -11.9f, 1.51f, 3.333f, 89.999f));
+        // 4th quadrant to 4th quadrant, north east, close to D (0.977121)
+        BOOST_CHECK(check_waypoint(20.0, -20.0, 35.0, -13.7f, 8.1f, 27.0001f));
+    }
 }
 
 BOOST_AUTO_TEST_CASE(ballistic_angles)
@@ -118,7 +126,7 @@ BOOST_AUTO_TEST_CASE(ballistic_angles)
     Ballistic ball1("ball1", -10.0, 60.0);
     BOOST_CHECK(ball1.getTakeOffAngle() == 45.0);
     BOOST_CHECK(ball1.getLandingAngle() == 60.0);
-    
+
     Ballistic ball2("ball2", 0.0, 90.0);
     BOOST_CHECK(ball2.getTakeOffAngle() == 45.0);
     BOOST_CHECK(ball2.getLandingAngle() == 90.0);
@@ -140,10 +148,10 @@ BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
 {
     Vertical vert("r2d2");
     Ballistic ball("ball", 45.0, 70.0);
-    /*
-    std::vector<Ufo*> ufos = { &vert, &vert };
+    std::vector<Ufo*> ufos = { &vert, &ball };
 
-    for (Ufo* ufo: ufos) {
+    for (Ufo* ufo: ufos)
+    {
         ufo->flyToDest(dest3[0], dest3[1], dest3[2], 10);
         BOOST_CHECK(size(ufo->getPosition()) == 3);
 
@@ -151,12 +159,10 @@ BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
         {
             BOOST_CHECK(fabs(ufo->getPosition()[0] - dest3[0]) < 0.3);
             BOOST_CHECK(fabs(ufo->getPosition()[1] - dest3[1]) < 0.3);
-            BOOST_CHECK(ufo->getPosition()[2] == 8.0);
+            BOOST_CHECK(ufo->getPosition()[2] == 0.0);
         }
     }
-    */
 }
-
 
 BOOST_AUTO_TEST_CASE(ballistic_waypoints1)
 {
@@ -238,7 +244,8 @@ BOOST_AUTO_TEST_CASE(type_checks)
     BOOST_CHECK(std::is_polymorphic_v<Ufo>);
 }
 
-BOOST_AUTO_TEST_CASE(ballistic_after_one_flight) {
+BOOST_AUTO_TEST_CASE(ballistic_after_one_flight)
+{
     Ballistic ball("ball", 40.0, 60.0);
     ball.flyToDest(dest4[0], dest4[1], dest4[2], 5);
     BOOST_CHECK(size(ball.getPosition()) == 3);
@@ -303,3 +310,4 @@ BOOST_AUTO_TEST_CASE(ballistic_is_not_vertical)
 }
 
 BOOST_AUTO_TEST_SUITE_END()
+

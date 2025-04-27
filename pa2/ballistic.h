@@ -11,6 +11,7 @@ class Ballistic : virtual public Ufo {
     //Can't be const because we will be re-setting it later 
     float takeOffAngle;
     float landingAngle;
+    vector<float> initialPosPreWaypointMove = {0.0f, 0.0f};
 
   public: 
     Ballistic(const string& pld, const float pTakeOffAngle, const float pLandingAngle);
