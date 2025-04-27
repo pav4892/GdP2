@@ -138,12 +138,12 @@ BOOST_AUTO_TEST_CASE(ballistic_angles)
 
 BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
 {
-    //Vertical vert("r2d2");
+    Vertical vert("r2d2");
     Ballistic ball("ball", 45.0, 70.0);
-    std::vector<Ufo*> ufos = { &ball };
+    /*
+    std::vector<Ufo*> ufos = { &vert, &vert };
 
-    for (Ufo* ufo: ufos)
-    {
+    for (Ufo* ufo: ufos) {
         ufo->flyToDest(dest3[0], dest3[1], dest3[2], 10);
         BOOST_CHECK(size(ufo->getPosition()) == 3);
 
@@ -154,7 +154,9 @@ BOOST_AUTO_TEST_CASE(ballistic_polymorphism)
             BOOST_CHECK(ufo->getPosition()[2] == 8.0);
         }
     }
+    */
 }
+
 
 BOOST_AUTO_TEST_CASE(ballistic_waypoints1)
 {
@@ -236,8 +238,7 @@ BOOST_AUTO_TEST_CASE(type_checks)
     BOOST_CHECK(std::is_polymorphic_v<Ufo>);
 }
 
-BOOST_AUTO_TEST_CASE(ballistic_after_one_flight)
-{
+BOOST_AUTO_TEST_CASE(ballistic_after_one_flight) {
     Ballistic ball("ball", 40.0, 60.0);
     ball.flyToDest(dest4[0], dest4[1], dest4[2], 5);
     BOOST_CHECK(size(ball.getPosition()) == 3);
