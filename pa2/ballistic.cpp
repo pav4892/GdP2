@@ -29,11 +29,11 @@ Ballistic::Ballistic(const string& pld, const float pTakeOffAngle, const float p
 
 Ballistic::~Ballistic(){};
 
-const float Ballistic::getTakeOffAngle() const {
+float Ballistic::getTakeOffAngle() const {
   return takeOffAngle;
 };
 
-const float Ballistic::getLandingAngle() const {
+float Ballistic::getLandingAngle() const {
     return landingAngle;
 };
 
