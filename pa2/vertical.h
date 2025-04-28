@@ -1,8 +1,6 @@
 #ifndef VERTICAL_H
 #define VERTICAL_H
 
-#include <string>
-#include <vector>
 #include "ufosim.h"
 #include "ufo.h"
 
@@ -17,9 +15,9 @@ class Vertical : virtual public Ufo {            //Vertical inherits Ufo in orde
     //Constructors and destructors don't have a return value ever so making anything const here besides the paramters passed in doesnt make sense....
     //Vertical(const string& pld);
     Vertical(const string& pld);
-//    ~Vertical(); TODO FIGURE THIS OUt
+    ~Vertical(); //TODO FIGURE THIS OUt
     //This will then be inherited and overwritten by ufo class I think
-    void flyToDest(const float x, const float y, const float height, const int speed) const;
+    void flyToDest(const float x, const float y, const float height, const int speed) const override;
 };
 
 #endif

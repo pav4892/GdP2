@@ -1,8 +1,5 @@
 #include "ballistic.h"
-#include "ufo.h"
 #include "ufosim.h"
-#include <vector>
-#include <iostream>
 
 using namespace std;
 

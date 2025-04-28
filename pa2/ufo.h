@@ -1,7 +1,6 @@
 #ifndef UFO_H
 #define UFO_H
 
-#include <string>
 #include <vector>
 #include "ufosim.h"
 

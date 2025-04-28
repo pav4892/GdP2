@@ -1,8 +1,6 @@
 #include "vertical.h"
-#include "ufo.h"
 #include <string>
 #include <vector>
-#include <cmath>
 
 using namespace std;
 
@@ -11,11 +9,11 @@ Vertical::Vertical(const string& pld) : Ufo(pld) {
   string a = pld;
 };
 
-/*
+
 Vertical::~Vertical() {
-  delete sim;
+//  delete sim;
 };
-*/
+
 
 //Macht keinen Sinn das das noch da ist
 

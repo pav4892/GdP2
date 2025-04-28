@@ -18,7 +18,7 @@ class Ballistic : virtual public Ufo {
     ~Ballistic();
     float getTakeOffAngle() const;
     float getLandingAngle() const;
-    void flyToDest(const float x, const float y, const float height, const int speed) const;
+    void flyToDest(const float x, const float y, const float height, const int speed) const override;
     const vector<float> firstWaypoint(const float x, const float y, const float height) const;
     const vector<float> secondWaypoint(const float x, const float y, const float height) const;
 };
