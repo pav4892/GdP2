@@ -29,7 +29,7 @@ static float distance(const float x1, const float y1, const float x2, const floa
   distanzGesamt += h; // Flugabschnitt 1  
   distanzGesamt += sqrt(pow(abs(x2-x1),2) + pow(abs(y2-y1),2)); // Flugabschnitt 2   -- Phytagoras?? c^2 = a^2+b^2  | Wir brauchen c also c=sqrt(a^2+b^2) --> distanzGesamt = sqrt((x2-x1)**2+(y2-y1)**2)  - Wir brauchen ja
                                                                 // die strecke X und Y also diff berechnen... https://moodle.thi.de/pluginfile.php/652211/mod_resource/content/11/cx3_praktikum.pdf Seite 2 hilft. Wir brauchen
-                                                                //die Strecke, kann aber schraeg sein, deswegen pytagoras. abs gibt absoluten value, also dass es egal ist in welche richtung das fliegt, auch rueckwaerts...
+                                                                // die Strecke, kann aber schraeg sein, deswegen pytagoras. abs gibt absoluten value, also dass es egal ist in welche richtung das fliegt, auch rueckwaerts...
   distanzGesamt += h; // Flugabschnitt 3
   return distanzGesamt;
 };
