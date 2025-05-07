@@ -40,26 +40,26 @@ void Route::setDist(const function<float(float, float, float, float, float)> pDi
 
 
 const float Route::distance() const {
-    float distanceTotal = 0.0;
-    int distanceArrLength = destinations.size(); // Get arrayLength for iteratior later...
 
-    if(distanceArrLength > 0) {
+    float distanceTotal = 0.0;
+    int destinationsArrLength = destinations.size(); // Get arrayLength for iteratior later...
+
+    if(destinationsArrLength == 0) {
+        return 0.0;
+    }
 
         // Start flight from origin to first
         distanceTotal += dist(0.0, 0.0, destinations[0].first, destinations[0].second, height);
 
-        if(distanceArrLength > 1) {
-            // Intermediate flights
-            for (int i = 0; i < distanceArrLength - 1; ++i) {
-                distanceTotal += dist(destinations[i].first, destinations[i].second, destinations[i + 1].first, destinations[i + 1].second, height);
+            if(destinationsArrLength > 1) {
+                // Intermediate flights
+                for (int i = 0; i < destinationsArrLength - 1; i++) {
+                    distanceTotal += dist(destinations[i].first, destinations[i].second, destinations[i + 1].first, destinations[i + 1].second, height);
+                }
             }
-        }
 
         // Return flight
         distanceTotal += dist(destinations.back().first, destinations.back().second, 0.0, 0.0, height);
-    } else {
-        distanceTotal = 0.0;
-    }
 
     return distanceTotal;
 }
@@ -67,36 +67,37 @@ const float Route::distance() const {
 const Route Route::shortestRoute() const {
     if (destinations.empty()) return *this;
 
-    vector<pair<float, float>> perm = destinations;
-    vector<pair<float, float>> bestPerm;
+    vector<pair<float, float>> bestDestinations;
     float bestDist = numeric_limits<float>::max();
 
-    sort(perm.begin(), perm.end());
+    // Work with a copy of destinations to permute directly
+    vector<pair<float, float>> currentDestinations = destinations;
+    sort(currentDestinations.begin(), currentDestinations.end());
 
     do {
         float tempDist = 0.0f;
+        tempDist += dist(0.0f, 0.0f, currentDestinations[0].first, currentDestinations[0].second, height);
 
-        tempDist += dist(0.0f, 0.0f, perm[0].first, perm[0].second, height);
-        for (size_t i = 0; i < perm.size() - 1; ++i) {
-            tempDist += dist(
-                perm[i].first, perm[i].second,
-                perm[i + 1].first, perm[i + 1].second,
-                height
-            );
+        for (size_t i = 0; i < currentDestinations.size() - 1; ++i) {
+            tempDist += dist(currentDestinations[i].first, currentDestinations[i].second,
+                             currentDestinations[i + 1].first, currentDestinations[i + 1].second, height);
         }
-        tempDist += dist(perm.back().first, perm.back().second, 0.0f, 0.0f, height);
+
+        tempDist += dist(currentDestinations.back().first, currentDestinations.back().second, 0.0f, 0.0f, height);
 
         if (tempDist < bestDist) {
             bestDist = tempDist;
-            bestPerm = perm;
+            bestDestinations = currentDestinations;
         }
-    } while (next_permutation(perm.begin(), perm.end()));
+    } while (next_permutation(currentDestinations.begin(), currentDestinations.end()));
 
+    // Build and return the best route
     Route best(height, dist);
-    for (const auto& p : bestPerm) {
-        best.add(p[0], p[1]);
+    for (const auto& p : bestDestinations) {
+        best.add(p.first, p.second);
     }
 
     return best;
 }
+
 
