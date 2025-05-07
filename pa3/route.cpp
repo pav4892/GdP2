@@ -94,7 +94,7 @@ const Route Route::shortestRoute() const {
 
     Route best(height, dist);
     for (const auto& p : bestPerm) {
-        best.add(p.first, p.second);
+        best.add(p[0], p[1]);
     }
 
     return best;
