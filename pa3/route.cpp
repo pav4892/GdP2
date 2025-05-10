@@ -2,6 +2,7 @@
 #include "vertical.h"
 #include <algorithm>
 #include <limits>
+#include <iostream> // remove later
 
 using namespace std;
 
@@ -68,19 +69,24 @@ const Route Route::shortestRoute() const {
     if (destinations.empty()) return *this;
 
     vector<pair<float, float>> bestDestinations;
-    float bestDist = numeric_limits<float>::max();
+    float bestDist = 1000000000;
 
-    // Work with a copy of destinations to permute directly
+    // Work with a copy of destinations to permut(e/ate)?? directly
     vector<pair<float, float>> currentDestinations = destinations;
+
+    // Need to pre-sort for permutation generation and iteration later(the whiel loop below)
+
     sort(currentDestinations.begin(), currentDestinations.end());
 
-    do {
+    // Go through each possible 
+
+    while (next_permutation(currentDestinations.begin(), currentDestinations.end())) {
+
         float tempDist = 0.0f;
         tempDist += dist(0.0f, 0.0f, currentDestinations[0].first, currentDestinations[0].second, height);
 
         for (size_t i = 0; i < currentDestinations.size() - 1; ++i) {
-            tempDist += dist(currentDestinations[i].first, currentDestinations[i].second,
-                             currentDestinations[i + 1].first, currentDestinations[i + 1].second, height);
+            tempDist += dist(currentDestinations[i].first, currentDestinations[i].second, currentDestinations[i + 1].first, currentDestinations[i + 1].second, height);
         }
 
         tempDist += dist(currentDestinations.back().first, currentDestinations.back().second, 0.0f, 0.0f, height);
@@ -88,9 +94,8 @@ const Route Route::shortestRoute() const {
         if (tempDist < bestDist) {
             bestDist = tempDist;
             bestDestinations = currentDestinations;
-        }
-    } while (next_permutation(currentDestinations.begin(), currentDestinations.end()));
-
+    }
+    } 
     // Build and return the best route
     Route best(height, dist);
     for (const auto& p : bestDestinations) {
