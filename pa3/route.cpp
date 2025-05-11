@@ -1,8 +1,5 @@
 #include "route.h"
 #include "vertical.h"
-#include <algorithm>
-#include <limits>
-#include <iostream> // remove later
 
 using namespace std;
 
