@@ -5,7 +5,7 @@ using namespace std;
 
 class Route {
 private:
-    vector<pair<float, float>> destinations;
+    vector<pair<float, float>>* destinations;
     float height;
     function<float(float, float, float, float, float)> dist;
 
@@ -16,10 +16,10 @@ public:
 
     void add(const float destX, const float destY);
     const vector<pair<float, float>>& getDestinations() const;
-    const float getHeight() const;
+    float getHeight() const;
     void setHeight(const float pHeight);
     void setDist(function<float(float, float, float, float, float)> pDist);
-    const float distance() const;
+    float distance() const;
     const Route shortestRoute() const;
 };
 

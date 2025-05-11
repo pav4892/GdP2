@@ -17,14 +17,14 @@ Route::Route(const Route& route) {
 Route::~Route() {};
 
 void Route::add(const float destX, const float destY) {
-  destinations.emplace_back(destX, destY);
+  (*destinations).emplace_back(destX, destY);
 };
 
 const vector<pair<float, float>>& Route::getDestinations() const {
-  return destinations;
+  return (*destinations);
 };
 
-const float Route::getHeight() const {
+float Route::getHeight() const {
   return height;
 };
 
@@ -37,39 +37,39 @@ void Route::setDist(const function<float(float, float, float, float, float)> pDi
 };
 
 
-const float Route::distance() const {
+float Route::distance() const {
 
     float distanceTotal = 0.0;
-    int destinationsArrLength = destinations.size(); // Get arrayLength for iteratior later...
+    int destinationsArrLength = (*destinations).size(); // Get arrayLength for iteratior later...
 
     if(destinationsArrLength == 0) {
         return 0.0;
     }
 
         // Start flight from origin to first
-        distanceTotal += dist(0.0, 0.0, destinations[0].first, destinations[0].second, height);
+        distanceTotal += dist(0.0, 0.0, (*destinations)[0].first, (*destinations)[0].second, height);
 
             if(destinationsArrLength > 1) {
                 // Intermediate flights
                 for (int i = 0; i < destinationsArrLength - 1; i++) {
-                    distanceTotal += dist(destinations[i].first, destinations[i].second, destinations[i + 1].first, destinations[i + 1].second, height);
+                    distanceTotal += dist((*destinations)[i].first, (*destinations)[i].second, (*destinations)[i + 1].first, (*destinations)[i + 1].second, height);
                 }
             }
 
         // Return flight
-        distanceTotal += dist(destinations.back().first, destinations.back().second, 0.0, 0.0, height);
+        distanceTotal += dist((*destinations).back().first, (*destinations).back().second, 0.0, 0.0, height);
 
     return distanceTotal;
 }
 
 const Route Route::shortestRoute() const {
-    if (destinations.empty()) return *this;
+    if ((*destinations).empty()) return *this;
 
     vector<pair<float, float>> bestDestinations;
     float bestDist = 1000000000;
 
     // Work with a copy of destinations to permut(e/ate)?? directly
-    vector<pair<float, float>> currentDestinations = destinations;
+    vector<pair<float, float>> currentDestinations = (*destinations);
 
     // Need to pre-sort for permutation generation and iteration later(the whiel loop below)
 
