@@ -1,0 +1,27 @@
+#include <thread>
+#include "ufo.h"
+
+using namespace std;
+
+class UfoThread {
+
+  private:
+    thread * flyThread;
+    Ufo * ufo;
+    bool isFlying;
+  public:
+    UfoThread(Ufo * pUfo);  // Start thread in the constructor in the cpp - not necessary
+    ~UfoThread();
+    void runner(const float x, const float height, const int speed);
+    void startUfo(const float y, const float y, const float height, const int speed); // Erst hier startet der Thread
+    const bool getIsFlying();
+  }
+    
+};
+
+/*
+Lay fylthrad and ufo on heap thats why we use pointers
+irgendwas mit this weitere paramter geben
+Thread soll nach erfolgreichem Flug noch immer aufrufbar sein oder so
+Nach landen wird thread gekillt und startufo startet immer wieder einen neuen thread pro flug aber immer mit dem selben flyThread
+*/
