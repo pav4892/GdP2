@@ -1,12 +1,14 @@
 #define BOOST_TEST_MAIN
 #include <cmath>
 #include <type_traits>
+#include <thread>
 #include <vector>
 #include <boost/test/included/unit_test.hpp>
 #include "ufo.h"
 #include "ballistic.h"
 #include "vertical.h"
 #include "route.h"
+#include "ufo_thread.h"
 
 BOOST_AUTO_TEST_SUITE(pa_utest)
 
@@ -16,6 +18,7 @@ std::vector<float> dest3 = { 30.0, 30.0, 8.0 };
 std::vector<float> dest4 = { -10.0, 0.0, 4.0 };
 std::vector<float> dest5 = { 10.0, 20.0, 8.0 };
 std::vector<float> dest6 = { -20.0, -15.0, 3.0 };
+std::vector<float> dest7 = { -1.119, 2.0, 4.0 };
 
 BOOST_AUTO_TEST_CASE(vertical_initially)
 {
@@ -74,7 +77,7 @@ bool check_waypoint(const float x1, const float y1,
                     const float h, const float phi)
 {
     std::vector<float> B = Ufo::wayPoint(x1, y1, x2, y2, h, phi);
-    return fabs((B[0] - x1) * (y2 - y1) - (B[1] - y1) * (x2 - x1) < 0.001);
+    return fabs((B[0] - x1) * (y2 - y1) - (B[1] - y1) * (x2 - x1)) < 0.001;
 }
 
 BOOST_AUTO_TEST_CASE(waypoint)
@@ -242,6 +245,7 @@ BOOST_AUTO_TEST_CASE(type_checks)
     BOOST_CHECK(std::is_class_v<Ballistic>);
     BOOST_CHECK(std::is_class_v<Vertical>);
     BOOST_CHECK(std::is_class_v<Route>);
+    BOOST_CHECK(std::is_class_v<UfoThread>);
     BOOST_CHECK(std::is_abstract_v<Ufo>);
     BOOST_CHECK(std::is_polymorphic_v<Ufo>);
 }
@@ -395,9 +399,9 @@ BOOST_AUTO_TEST_CASE(route_empty)
     Route rout(10.0, &Vertical::distance);
     BOOST_CHECK(size(rout.getDestinations()) == 0);
     BOOST_CHECK(fabs(rout.distance() - 0.0) < 0.001);
-    rout.shortestRoute();
-    BOOST_CHECK(size(rout.getDestinations()) == 0);
-    BOOST_CHECK(fabs(rout.distance() - 0.0) < 0.001);
+    Route routs(rout.shortestRoute());
+    BOOST_CHECK(size(routs.getDestinations()) == 0);
+    BOOST_CHECK(fabs(routs.distance() - 0.0) < 0.001);
 }
 
 float myDist(const float, const float, const float, const float, const float)
@@ -430,6 +434,28 @@ BOOST_AUTO_TEST_CASE(route_dist2)
     rout.add(0.0, 10.0);
     rout.setDist(&myDist);
     BOOST_CHECK(fabs(rout.distance() - 6.0) < 0.001);
+}
+
+BOOST_AUTO_TEST_CASE(ufo_thread)
+{
+    Vertical *vert = new Vertical("r2d2");
+    UfoThread uthread(vert);
+    BOOST_CHECK(uthread.getIsFlying() == false);
+    uthread.startUfo(dest7[0], dest7[1], dest7[2], 10);
+    BOOST_CHECK(uthread.getIsFlying() == true);
+    std::this_thread::sleep_for(std::chrono::seconds(15));
+    BOOST_CHECK(uthread.getIsFlying() == false);
+    uthread.startUfo(dest2[0], dest2[1], dest2[2], 10);
+    BOOST_CHECK(uthread.getIsFlying() == true);
+    std::this_thread::sleep_for(std::chrono::seconds(15));
+    BOOST_CHECK(uthread.getIsFlying() == false);
+}
+
+BOOST_AUTO_TEST_CASE(ufo_thread_not_started)
+{
+    Vertical *vert = new Vertical("r2d2");
+    UfoThread uthread(vert);
+    BOOST_CHECK(uthread.getIsFlying() == false);
 }
 
 BOOST_AUTO_TEST_SUITE_END()
