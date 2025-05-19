@@ -18,7 +18,10 @@ Route::Route(const Route& route) {
     destinations = new vector<pair<float, float>>(*route.destinations);
 }
 
-Route::~Route() {};
+Route::~Route() {
+    delete destinations;
+    destinations = nullptr;
+};
 
 void Route::add(const float destX, const float destY) {
     destinations->emplace_back(destX, destY);
@@ -89,10 +92,16 @@ const Route Route::shortestRoute() const {
         }
     } 
 
+    /*
     Route best(height, dist);
     for (const auto& p : bestDestinations) {
         best.add(p.first, p.second);
-    }
+    };
+    */
+
+    Route best(*this); // use copy constructor instead of doing the loop thing because I think he want's me to do it that way...
+
+    (*best.destinations) = bestDestinations;
 
     return best;
 }
