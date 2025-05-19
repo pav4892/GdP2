@@ -1,3 +1,4 @@
+#include <thread>
 #include "ufo_thread.h"
 
 using namespace std;
@@ -8,14 +9,31 @@ UfoThread::UfoThread(Ufo * pUfo) {
   isFlying = false;
 };
 
-UfoThread::~UfoThread(){};
-
-void const float x, const float height, const int speedUfoThread::runner(const float x, const float height, const int speed) {
-
+UfoThread::~UfoThread(){
+  if(flyThread != nullptr) {
+    (*flyThread).join();
+  };
+  delete flyThread;
+  flyThread = nullptr;
+  isFlying = false;
 };
 
-void UfoThread::startUfo(const float y, const float y, const float height, const int speed) {
+void UfoThread::runner(const float x, const float y, const float height, const int speed) {
+  ufo->flyToDest(x, y, height, speed);
+  isFlying = false;
+};
 
+void UfoThread::startUfo(const float x, const float y, const float height, const int speed) {
+
+  // We do the condition twice here because the instruction says it neeeds to be joined after it ends obvi BUT also in case another thread still exists.... somehow, not sure if I need the first check
+  
+  if(flyThread != nullptr) {
+    (*flyThread).join();    
+  };
+
+  isFlying = true;
+  flyThread = new thread(&UfoThread::runner, this, x, y, height, speed); // create thread, call function and pass trhouh params to it. 'this' has to be passed through aswell but does NOT count as param of runner function
+  
 };
 
 const bool UfoThread::getIsFlying() {

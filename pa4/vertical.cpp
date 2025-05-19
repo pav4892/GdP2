@@ -6,17 +6,10 @@
 using namespace std;
 
 //If a class inherits another class the Constructor of the class that is inherited needs to be noted here as follows
-Vertical::Vertical(const string& pld) : Ufo(pld) {
-  string a = pld;
-};
+Vertical::Vertical(const string& pld) : Ufo(pld) {};
 
 
-Vertical::~Vertical() {
-//  delete sim;
-};
-
-
-//Macht keinen Sinn das das noch da ist
+Vertical::~Vertical() {};
 
 void Vertical::flyToDest(const float x, const float y, const float height, const int speed) const {
   sim->flyTo(sim->getX(), sim->getY(), height, speed, 0);

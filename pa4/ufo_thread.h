@@ -9,13 +9,12 @@ class UfoThread {
     thread * flyThread;
     Ufo * ufo;
     bool isFlying;
+    void runner(const float x, const float y, const float height, const int speed);
   public:
-    UfoThread(Ufo * pUfo);  // Start thread in the constructor in the cpp - not necessary
+    UfoThread(Ufo * pUfo);
     ~UfoThread();
-    void runner(const float x, const float height, const int speed);
-    void startUfo(const float y, const float y, const float height, const int speed); // Erst hier startet der Thread
+    void startUfo(const float x, const float y, const float height, const int speed); // Erst hier startet der Thread
     const bool getIsFlying();
-  }
     
 };
 

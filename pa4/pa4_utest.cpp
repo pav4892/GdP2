@@ -458,5 +458,19 @@ BOOST_AUTO_TEST_CASE(ufo_thread_not_started)
     BOOST_CHECK(uthread.getIsFlying() == false);
 }
 
+void two_ufo_threads(Ufo *ufo)
+{
+    UfoThread uthread(ufo);
+    uthread.startUfo(0.0, 3.0, 3.0, 10);    
+    uthread.startUfo(0.0, 6.0, 3.0, 10);    
+}
+
+BOOST_AUTO_TEST_CASE(ufo_threads_without_sleep)
+{
+    Vertical *vert = new Vertical("r2d2");
+    two_ufo_threads(vert);
+    BOOST_CHECK(fabs(vert->getPosition()[1] - 6.0) < 0.001);
+}
+
 BOOST_AUTO_TEST_SUITE_END()
 
