@@ -36,6 +36,6 @@ void UfoThread::startUfo(const float x, const float y, const float height, const
   
 };
 
-const bool UfoThread::getIsFlying() {
+bool UfoThread::getIsFlying() {
   return isFlying;
 };
