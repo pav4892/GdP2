@@ -25,7 +25,7 @@ void UfoThread::runner(const float x, const float y, const float height, const i
 
 void UfoThread::startUfo(const float x, const float y, const float height, const int speed) {
 
-  // We do the condition twice here because the instruction says it neeeds to be joined after it ends obvi BUT also in case another thread still exists.... somehow, not sure if I need the first check
+  // We do the condition twice here because the instruction says it neeeds to be joined after it ends obvi BUT also in case another thread still exists.... somehow, not sure if I need the second check here or in destructor
   
   if(flyThread != nullptr) {
     (*flyThread).join();    
