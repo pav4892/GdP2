@@ -21,6 +21,12 @@ UfoThread::~UfoThread(){
 void UfoThread::runner(const float x, const float y, const float height, const int speed) {
   ufo->flyToDest(x, y, height, speed);
   isFlying = false;
+
+  if(flyThread != nullptr) {
+    (*flyThread).join();    
+    delete flyThread;
+    flyThread = nullptr;
+  };
 };
 
 void UfoThread::startUfo(const float x, const float y, const float height, const int speed) {
@@ -29,6 +35,8 @@ void UfoThread::startUfo(const float x, const float y, const float height, const
   
   if(flyThread != nullptr) {
     (*flyThread).join();    
+    delete flyThread;
+    flyThread = nullptr;
   };
 
   isFlying = true;
@@ -36,6 +44,6 @@ void UfoThread::startUfo(const float x, const float y, const float height, const
   
 };
 
-bool UfoThread::getIsFlying() {
+const bool UfoThread::getIsFlying() const {
   return isFlying;
 };

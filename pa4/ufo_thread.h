@@ -14,7 +14,7 @@ class UfoThread {
     UfoThread(Ufo * pUfo);
     ~UfoThread();
     void startUfo(const float x, const float y, const float height, const int speed); // Erst hier startet der Thread
-    bool getIsFlying();
+    const bool getIsFlying() const;
     
 };
 
