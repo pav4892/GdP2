@@ -39,10 +39,11 @@ public:
         
         connect(startButton, SIGNAL(clicked()), this, SLOT(startUfo()));
 
-        infoLabel = new QLabel("\n\n\n");
+        infoLabel = new QLabel("\nStarted at\nPosition:\n0.00 | 0.00 | 0.00 meter\n");
         infoLabel->setWordWrap(true);
         infoLabel->setAlignment(Qt::AlignCenter);
         infoLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+
         // Do the frame around it (is from moodle)
         infoLabel->setFrameShape(QFrame::Box);
         infoLabel->setFrameShadow(QFrame::Plain);
@@ -99,6 +100,9 @@ private slots:
         float y = static_cast<float>(yDouble);
         float height = static_cast<float>(heightDouble);
         int speed = static_cast<int>(speedDouble);
+
+        startButton->setText("Flying");
+        startButton->setEnabled(false);
 
         uthread->startUfo(x, y, height, speed);
     };
