@@ -2,9 +2,7 @@
 #define MAINWIDGET_H
 
 #include <QMainWindow>
-#include <QtWidgets/QLabel>
-#include <QtWidgets/QGridLayout>
-#include <QtWidgets/QHBoxLayout>
+#include <QtWidgets>
 
 class MainWidget : public QWidget
 {
@@ -13,28 +11,35 @@ class MainWidget : public QWidget
 public:
     MainWidget(QMainWindow *parent = nullptr): QWidget(parent)
     {
-        label1 = new QLabel("First label");
-        label2 = new QLabel("Second label is longer");
-        label3 = new QLabel("Wide\nLabel");
-        label4 = new QLabel("Next label");
-        label5 = new QLabel("Label");
-        label6 = new QLabel("Last Label is a very very long label");
-        label1->setStyleSheet("border: 1px solid black");
+        label1 = new QLabel("x:");
+        label2 = new QLabel("y:");
+        label3 = new QLabel("height:");
+        label4 = new QLabel("speed:");
+
+        inputX = new QLineEdit();
+        inputY = new QLineEdit();
+        inputHeight = new QLineEdit();
+        inputSpeed = new QLineEdit();
+
+/*        label1->setStyleSheet("border: 1px solid black");
         label2->setStyleSheet("border: 1px solid black");
         label3->setStyleSheet("border: 1px solid black");
         label4->setStyleSheet("border: 1px solid black");
         label5->setStyleSheet("border: 1px solid black");
         label6->setStyleSheet("border: 1px solid black");
+        */
 
         // First variant: GridLayout
         layout = new QGridLayout();
         layout->addWidget(label1, 0, 0);
-        layout->addWidget(label2, 0, 1);
-        layout->addWidget(label3, 0, 2);
-        layout->addWidget(label4, 1, 0);
-        layout->addWidget(label5, 1, 1);
-        layout->addWidget(label6, 1, 2);
-        layout->setSpacing(0);
+        layout->addWidget(inputX, 0, 8);
+        layout->addWidget(label2, 2, 0);
+        layout->addWidget(inputY, 2, 8);
+        layout->addWidget(label3, 4, 0);
+        layout->addWidget(inputHeight, 4, 8);
+        layout->addWidget(label4, 6, 0);
+        layout->addWidget(inputSpeed, 6, 8);
+        layout->setSpacing(2);
         setLayout(layout);
 
         // Second variant: HBoxLayout
@@ -78,8 +83,6 @@ public:
         delete label2;
         delete label3;
         delete label4;
-        delete label5;
-        delete label6;
 
         // First variant: GridLayout
         delete layout;
@@ -100,8 +103,11 @@ private:
     QLabel *label2;
     QLabel *label3;
     QLabel *label4;
-    QLabel *label5;
-    QLabel *label6;
+
+    QLineEdit * inputX;
+    QLineEdit * inputY;
+    QLineEdit * inputHeight;
+    QLineEdit * inputSpeed;
 
     // First variant: GridLayout
     QGridLayout *layout;
