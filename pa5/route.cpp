@@ -18,9 +18,6 @@ Route::Route(const Route& route) {
     destinations = new vector<pair<float, float>>(*route.destinations);
 };
 
-//Move Constructor
-Route::Route(Route &&routeObject) {};
-
 Route::~Route() {
     delete destinations;
     destinations = nullptr;

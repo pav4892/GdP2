@@ -11,10 +11,10 @@ class MainWindow : public QMainWindow
 public:
     MainWindow()
     {
-        QIcon icon("../layout/thi_icon.png");
-        setWindowTitle("Layout");
+        QIcon icon("thi_icon.png");
+        setWindowTitle("Ufo");
         setWindowIcon(icon);
-        resize(50,20);
+        resize(50, 250);
         mainwidget = new MainWidget(this);
         setCentralWidget(mainwidget);
     }

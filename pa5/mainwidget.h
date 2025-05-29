@@ -11,70 +11,51 @@ class MainWidget : public QWidget
 public:
     MainWidget(QMainWindow *parent = nullptr): QWidget(parent)
     {
-        label1 = new QLabel("x:");
-        label2 = new QLabel("y:");
-        label3 = new QLabel("height:");
-        label4 = new QLabel("speed:");
+        label1 = new QLabel("x: ");
+        label2 = new QLabel("y: ");
+        label3 = new QLabel("height: ");
+        label4 = new QLabel("speed: ");
 
         inputX = new QLineEdit();
         inputY = new QLineEdit();
         inputHeight = new QLineEdit();
         inputSpeed = new QLineEdit();
 
-/*        label1->setStyleSheet("border: 1px solid black");
-        label2->setStyleSheet("border: 1px solid black");
-        label3->setStyleSheet("border: 1px solid black");
-        label4->setStyleSheet("border: 1px solid black");
-        label5->setStyleSheet("border: 1px solid black");
-        label6->setStyleSheet("border: 1px solid black");
-        */
+        inputX->setFixedSize(150, 30);
+        inputY->setFixedSize(150, 30);
+        inputHeight->setFixedSize(150, 30);
+        inputSpeed->setFixedSize(150, 30);
 
-        // First variant: GridLayout
-        layout = new QGridLayout();
-        layout->addWidget(label1, 0, 0);
-        layout->addWidget(inputX, 0, 8);
-        layout->addWidget(label2, 2, 0);
-        layout->addWidget(inputY, 2, 8);
-        layout->addWidget(label3, 4, 0);
-        layout->addWidget(inputHeight, 4, 8);
-        layout->addWidget(label4, 6, 0);
-        layout->addWidget(inputSpeed, 6, 8);
-        layout->setSpacing(2);
-        setLayout(layout);
+        startButton = new QPushButton("Start");
+        startButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        startButton->setFixedHeight(40);
 
-        // Second variant: HBoxLayout
-        /*layout = new QHBoxLayout();
-        layout->addWidget(label1);
-        layout->addWidget(label2);
-        layout->addWidget(label3);
-        layout->addWidget(label4);
-        layout->addWidget(label5);
-        layout->addWidget(label6);
-        layout->setSpacing(0);
-        setLayout(layout);*/
+        infoLabel = new QLabel("\n\n\n");
+        infoLabel->setWordWrap(true);
+        infoLabel->setAlignment(Qt::AlignCenter);
+        infoLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+        // Do the frame around it (is from moodle)
+        infoLabel->setFrameShape(QFrame::Box);
+        infoLabel->setFrameShadow(QFrame::Plain);
 
-        // Third variant: Nested Layouts
-        /*layout1 = new QHBoxLayout();
-        layout1->addWidget(label1);
-        layout1->addWidget(label2);
-        layout1->addWidget(label3);
-        layout1->setSpacing(0);
-        widget1 = new QWidget();
-        widget1->setLayout(layout1);
+        QGridLayout *formLayout = new QGridLayout();
+        formLayout->addWidget(label1, 0, 0);
+        formLayout->addWidget(inputX, 0, 1);
+        formLayout->addWidget(label2, 1, 0);
+        formLayout->addWidget(inputY, 1, 1);
+        formLayout->addWidget(label3, 2, 0);
+        formLayout->addWidget(inputHeight, 2, 1);
+        formLayout->addWidget(label4, 3, 0);
+        formLayout->addWidget(inputSpeed, 3, 1);
+        formLayout->setSpacing(10);
 
-        layout2 = new QHBoxLayout();
-        layout2->addWidget(label4);
-        layout2->addWidget(label5);
-        layout2->addWidget(label6);
-        layout2->setSpacing(0);
-        widget2 = new QWidget();
-        widget2->setLayout(layout2);
+        QVBoxLayout *mainLayout = new QVBoxLayout();
+        mainLayout->addLayout(formLayout);
+        mainLayout->addStretch();
+        mainLayout->addWidget(startButton);
+        mainLayout->addWidget(infoLabel);
 
-        layout = new QGridLayout();
-        layout->addWidget(widget1, 0, 0);
-        layout->addWidget(widget2, 1, 0);
-        layout->setSpacing(0);
-        setLayout(layout);*/
+        setLayout(mainLayout);
     }
 
     ~MainWidget()
@@ -84,18 +65,13 @@ public:
         delete label3;
         delete label4;
 
-        // First variant: GridLayout
-        delete layout;
+        delete inputX;
+        delete inputY;
+        delete inputHeight;
+        delete inputSpeed;
 
-        // Second variant: HBoxLayout
-        //delete layout;
-
-        // Third variant: Nested Layouts
-        /*delete layout1;
-        delete widget1;
-        delete layout2;
-        delete widget2;
-        delete layout;*/
+        delete startButton;
+        delete infoLabel;
     }
 
 private:
@@ -104,23 +80,13 @@ private:
     QLabel *label3;
     QLabel *label4;
 
-    QLineEdit * inputX;
-    QLineEdit * inputY;
-    QLineEdit * inputHeight;
-    QLineEdit * inputSpeed;
+    QLineEdit *inputX;
+    QLineEdit *inputY;
+    QLineEdit *inputHeight;
+    QLineEdit *inputSpeed;
 
-    // First variant: GridLayout
-    QGridLayout *layout;
-
-    // Second variant: HBoxLayout
-    //QHBoxLayout *layout;
-
-    // Third variant: Nested Layouts
-    /*QHBoxLayout *layout1;
-    QWidget *widget1;
-    QHBoxLayout *layout2;
-    QWidget *widget2;
-    QGridLayout *layout;*/
+    QPushButton *startButton;
+    QLabel *infoLabel;
 };
 
 #endif // MAINWIDGET_H

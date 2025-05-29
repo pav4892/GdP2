@@ -12,7 +12,6 @@ private:
 public:
     Route(float pHeight, function<float(float, float, float, float, float)> pDist); // Constructor 1 
     Route(const Route& route);  // Copy constructor
-    Route(Route &&routeObject); // Move Constructor
     ~Route();
 
     void add(const float destX, const float destY);
