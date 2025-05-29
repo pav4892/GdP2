@@ -16,7 +16,6 @@ SOURCES += ballistic.cpp \
     ufosim.cpp \
     ui_main.cpp \
     vertical.cpp \
-    ufo_thread.cpp #added this cause some linker error made problems
 
 QT += widgets
 

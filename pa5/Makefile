@@ -57,8 +57,7 @@ SOURCES       = ballistic.cpp \
 		ufo.cpp \
 		ufosim.cpp \
 		ui_main.cpp \
-		vertical.cpp \
-		ufo_thread.cpp moc_ui_widget.cpp \
+		vertical.cpp moc_ui_widget.cpp \
 		moc_ui_window.cpp
 OBJECTS       = ballistic.o \
 		route.o \
@@ -66,7 +65,6 @@ OBJECTS       = ballistic.o \
 		ufosim.o \
 		ui_main.o \
 		vertical.o \
-		ufo_thread.o \
 		moc_ui_widget.o \
 		moc_ui_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -169,8 +167,7 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		ufo.cpp \
 		ufosim.cpp \
 		ui_main.cpp \
-		vertical.cpp \
-		ufo_thread.cpp
+		vertical.cpp
 QMAKE_TARGET  = pa5
 DESTDIR       = 
 TARGET        = pa5
@@ -377,7 +374,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ballistic.h route.h ufo.h ufosim.h ui_widget.h ui_window.h vertical.h ufo_thread.h $(DISTDIR)/
-	$(COPY_FILE) --parents ballistic.cpp route.cpp ufo.cpp ufosim.cpp ui_main.cpp vertical.cpp ufo_thread.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ballistic.cpp route.cpp ufo.cpp ufosim.cpp ui_main.cpp vertical.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -478,11 +475,6 @@ vertical.o: vertical.cpp vertical.h \
 		ufosim.h \
 		ufo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vertical.o vertical.cpp
-
-ufo_thread.o: ufo_thread.cpp ufo_thread.h \
-		ufo.h \
-		ufosim.h
-	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ufo_thread.o ufo_thread.cpp
 
 moc_ui_widget.o: moc_ui_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ui_widget.o moc_ui_widget.cpp

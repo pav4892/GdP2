@@ -127,12 +127,16 @@ class MainWidget : public QWidget
 
                 startButton->setText("Flying");
                 startButton->setEnabled(false);
+                QApplication::processEvents(); // Forces the UI to update now
 
                 uthread->startUfo(x, y, height, speed);
 
+                
+            
                 while(1) {
                     if(uthread->getIsFlying() == false) {
-                        printf("hey\n");
+                        startButton->setText("Start");
+                        startButton->setEnabled(true);
                         break;
                     }
                 }
