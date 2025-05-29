@@ -3,6 +3,9 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
+#include "ufosim.h"
+#include "vertical.h"
+#include "ufo_thread.h"
 
 class MainWidget : public QWidget
 {
@@ -11,6 +14,10 @@ class MainWidget : public QWidget
 public:
     MainWidget(QMainWindow *parent = nullptr): QWidget(parent)
     {
+
+        ufo = new Vertical("r2d2");
+        uthread = new UfoThread(ufo);
+
         label1 = new QLabel("x: ");
         label2 = new QLabel("y: ");
         label3 = new QLabel("height: ");
@@ -29,6 +36,8 @@ public:
         startButton = new QPushButton("Start");
         startButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
         startButton->setFixedHeight(40);
+        
+        connect(startButton, SIGNAL(clicked()), this, SLOT(startUfo()));
 
         infoLabel = new QLabel("\n\n\n");
         infoLabel->setWordWrap(true);
@@ -74,7 +83,31 @@ public:
         delete infoLabel;
     }
 
+private slots:
+    void startUfo() {
+        QString xStr = inputX->text();
+        QString yStr = inputY->text();
+        QString heightStr = inputHeight->text();
+        QString speedStr = inputSpeed->text();
+
+        double xDouble = xStr.toDouble();
+        double yDouble = yStr.toDouble();
+        double heightDouble = heightStr.toDouble();
+        double speedDouble = speedStr.toDouble();
+
+        float x = static_cast<float>(xDouble);
+        float y = static_cast<float>(yDouble);
+        float height = static_cast<float>(heightDouble);
+        int speed = static_cast<int>(speedDouble);
+
+        uthread->startUfo(x, y, height, speed);
+    };
+
 private:
+
+    Ufo * ufo;
+    UfoThread * uthread;
+
     QLabel *label1;
     QLabel *label2;
     QLabel *label3;

@@ -57,7 +57,8 @@ SOURCES       = ballistic.cpp \
 		ufo.cpp \
 		ufosim.cpp \
 		ui_main.cpp \
-		vertical.cpp moc_ui_widget.cpp \
+		vertical.cpp \
+		ufo_thread.cpp moc_ui_widget.cpp \
 		moc_ui_window.cpp
 OBJECTS       = ballistic.o \
 		route.o \
@@ -65,6 +66,7 @@ OBJECTS       = ballistic.o \
 		ufosim.o \
 		ui_main.o \
 		vertical.o \
+		ufo_thread.o \
 		moc_ui_widget.o \
 		moc_ui_window.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
@@ -167,7 +169,8 @@ DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		ufo.cpp \
 		ufosim.cpp \
 		ui_main.cpp \
-		vertical.cpp
+		vertical.cpp \
+		ufo_thread.cpp
 QMAKE_TARGET  = pa5
 DESTDIR       = 
 TARGET        = pa5
@@ -374,7 +377,7 @@ distdir: FORCE
 	$(COPY_FILE) --parents $(DIST) $(DISTDIR)/
 	$(COPY_FILE) --parents /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp $(DISTDIR)/
 	$(COPY_FILE) --parents ballistic.h route.h ufo.h ufosim.h ui_widget.h ui_window.h vertical.h ufo_thread.h $(DISTDIR)/
-	$(COPY_FILE) --parents ballistic.cpp route.cpp ufo.cpp ufosim.cpp ui_main.cpp vertical.cpp $(DISTDIR)/
+	$(COPY_FILE) --parents ballistic.cpp route.cpp ufo.cpp ufosim.cpp ui_main.cpp vertical.cpp ufo_thread.cpp $(DISTDIR)/
 
 
 clean: compiler_clean 
@@ -410,12 +413,20 @@ compiler_moc_header_make_all: moc_ui_widget.cpp moc_ui_window.cpp
 compiler_moc_header_clean:
 	-$(DEL_FILE) moc_ui_widget.cpp moc_ui_window.cpp
 moc_ui_widget.cpp: ui_widget.h \
+		ufosim.h \
+		vertical.h \
+		ufo.h \
+		ufo_thread.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/n0ne/GdP2/pa5/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/n0ne/GdP2/pa5 -I/home/n0ne/GdP2/pa5 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_widget.h -o moc_ui_widget.cpp
 
 moc_ui_window.cpp: ui_window.h \
 		ui_widget.h \
+		ufosim.h \
+		vertical.h \
+		ufo.h \
+		ufo_thread.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/n0ne/GdP2/pa5/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/n0ne/GdP2/pa5 -I/home/n0ne/GdP2/pa5 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_window.h -o moc_ui_window.cpp
@@ -456,13 +467,22 @@ ufosim.o: ufosim.cpp ufosim.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ufosim.o ufosim.cpp
 
 ui_main.o: ui_main.cpp ui_window.h \
-		ui_widget.h
+		ui_widget.h \
+		ufosim.h \
+		vertical.h \
+		ufo.h \
+		ufo_thread.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ui_main.o ui_main.cpp
 
 vertical.o: vertical.cpp vertical.h \
 		ufosim.h \
 		ufo.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o vertical.o vertical.cpp
+
+ufo_thread.o: ufo_thread.cpp ufo_thread.h \
+		ufo.h \
+		ufosim.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o ufo_thread.o ufo_thread.cpp
 
 moc_ui_widget.o: moc_ui_widget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ui_widget.o moc_ui_widget.cpp
