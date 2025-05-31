@@ -109,7 +109,7 @@ const Route Route::shortestRoute() const {
     };
     */
 
-    Route best(move(*this)); // use copy(Move constructor now because of pa5-a)  is more efficent ig  ) constructor instead of doing the loop thing because I think he want's me to do it that way...
+    Route best(move(*this)); // use copy(Move constructor now because of pa5-a)  is more efficent  ) constructor instead of doing the loop thing because I think he want's me to do it that way...
 
     (*best.destinations) = bestDestinations;
 
