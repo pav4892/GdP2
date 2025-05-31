@@ -11,7 +11,17 @@ Route::Route(const float pHeight, const function<float(float, float, float, floa
     destinations = new vector<pair<float, float>>;
 };
 
+// Move constructor
+Route::Route(Route&& other) noexcept {
+    printf("heyyyyy");
+    height = other.height;
+    dist = std::move(other.dist);
+    destinations = other.destinations;
+    other.destinations = nullptr;
+};
+
 Route::Route(const Route& route) {
+    printf("heyyyyy");
     height = route.height;
     dist = route.dist;
     // Derefererenece the pointer to get the actual object and then save it to destinations after "casting" it
@@ -99,7 +109,7 @@ const Route Route::shortestRoute() const {
     };
     */
 
-    Route best(*this); // use copy constructor instead of doing the loop thing because I think he want's me to do it that way...
+    Route best(move(*this)); // use copy(Move constructor now because of pa5-a)  is more efficent ig  ) constructor instead of doing the loop thing because I think he want's me to do it that way...
 
     (*best.destinations) = bestDestinations;
 
