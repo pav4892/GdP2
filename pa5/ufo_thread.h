@@ -1,9 +1,12 @@
 #include <thread>
+#include <QObject>
 #include "ufo.h"
 
 using namespace std;
 
 class UfoThread {
+
+  //Q_OBJECT
 
   private:
     thread * flyThread;

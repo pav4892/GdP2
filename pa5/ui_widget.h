@@ -3,8 +3,7 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <time.h>
-#include <unistd.h>
+#include <iomanip> // gives setprecision interface for float limit to 2 digits after komma
 #include "ufosim.h"
 #include "vertical.h"
 #include "ufo_thread.h"
@@ -41,7 +40,7 @@ class MainWidget : public QWidget
             
             connect(startButton, SIGNAL(clicked()), this, SLOT(startUfo()));
 
-            infoLabel = new QLabel("\nStarted at\nPosition:\n0.00 | 0.00 | 0.00 meter\n");
+            infoLabel = new QLabel("\n\n\n\n");
             infoLabel->setWordWrap(true);
             infoLabel->setAlignment(Qt::AlignCenter);
             infoLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
@@ -91,6 +90,17 @@ class MainWidget : public QWidget
 
     private slots:
         void startUfo() {
+
+            ostringstream pos1, pos2, pos3;
+
+            pos1 << fixed << setprecision(2) << ufo->getPosition()[0];
+            pos2 << fixed << setprecision(2) << ufo->getPosition()[1];
+            pos3 << fixed << setprecision(2) << ufo->getPosition()[2];
+
+            string infoLabelString = "\nStarted at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos2.str() + " meter\n";
+            infoLabel->setText(QString::fromStdString(infoLabelString));
+
+
             // Get and Cast the QStrings to the appropriate datatypes for use in uthread's startUfo() function later
             
             // We pass a declared but uninitialised boolean to the toFloat function as error detection because it will set it to false if there is a problem with the conversion and dont have to deal with try catch. Source: google
@@ -100,6 +110,7 @@ class MainWidget : public QWidget
             float x = xStr.toFloat(&okX);
             if(!okX) {
                 inputX->setText("error: must be float");
+                infoLabel->setText("\n\n\n\n");
             };
 
             bool okY;
@@ -107,6 +118,7 @@ class MainWidget : public QWidget
             float y = yStr.toFloat(&okY);
             if(!okY) {
                 inputY->setText("error: must be float");
+                infoLabel->setText("\n\n\n\n");
             };
 
             bool okHeight;
@@ -114,6 +126,7 @@ class MainWidget : public QWidget
             float height = heightStr.toFloat(&okHeight);
             if(!okHeight) {
                 inputHeight->setText("error: must be float");
+                infoLabel->setText("\n\n\n\n");
             };
 
             bool okSpeed;
@@ -121,6 +134,7 @@ class MainWidget : public QWidget
             int speed = speedStr.toInt(&okSpeed);
             if(!okSpeed) {
                 inputSpeed->setText("error: must be int");
+                infoLabel->setText("\n\n\n\n");
             };
 
             if(okX && okY && okHeight && okSpeed) {
@@ -135,8 +149,8 @@ class MainWidget : public QWidget
             
                 while(1) {
                     if(uthread->getIsFlying() == false) {
-                        startButton->setText("Start");
-                        startButton->setEnabled(true);
+                        //startButton->setText("Start");
+                        //startButton->setEnabled(true);
                         break;
                     }
                 }
