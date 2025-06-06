@@ -39,6 +39,7 @@ class MainWidget : public QWidget
             startButton->setFixedHeight(40);
             
             connect(startButton, SIGNAL(clicked()), this, SLOT(startUfo()));
+            connect(uthread, SIGNAL(stopped(std::vector<float>)), this, SLOT(updateWindow(std::vector<float>)));
 
             infoLabel = new QLabel("\n\n\n\n");
             infoLabel->setWordWrap(true);
@@ -89,6 +90,20 @@ class MainWidget : public QWidget
         }
 
     private slots:
+
+        void updateWindow(std::vector<float> posStruct) {
+            ostringstream pos1, pos2, pos3;
+
+            pos1 << fixed << setprecision(2) << posStruct[0];
+            pos2 << fixed << setprecision(2) << posStruct[1];
+            pos3 << fixed << setprecision(2) << posStruct[2];
+            string infoLabelString = "\nFlight completed at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos2.str() + " meter\n";
+            infoLabel->setText(QString::fromStdString(infoLabelString));
+
+            startButton->setText("Start");
+            startButton->setEnabled(true);
+        };
+
         void startUfo() {
 
             ostringstream pos1, pos2, pos3;

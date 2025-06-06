@@ -58,7 +58,8 @@ SOURCES       = ballistic.cpp \
 		ufosim.cpp \
 		ui_main.cpp \
 		vertical.cpp moc_ui_widget.cpp \
-		moc_ui_window.cpp
+		moc_ui_window.cpp \
+		moc_ufo_thread.cpp
 OBJECTS       = ballistic.o \
 		route.o \
 		ufo.o \
@@ -66,7 +67,8 @@ OBJECTS       = ballistic.o \
 		ui_main.o \
 		vertical.o \
 		moc_ui_widget.o \
-		moc_ui_window.o
+		moc_ui_window.o \
+		moc_ufo_thread.o
 DIST          = /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/spec_pre.prf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/unix.conf \
 		/usr/lib/x86_64-linux-gnu/qt5/mkspecs/common/linux.conf \
@@ -406,9 +408,9 @@ compiler_moc_predefs_clean:
 moc_predefs.h: /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 	g++ -pipe -O2 -std=gnu++2a -Wall -Wextra -dM -E -o moc_predefs.h /usr/lib/x86_64-linux-gnu/qt5/mkspecs/features/data/dummy.cpp
 
-compiler_moc_header_make_all: moc_ui_widget.cpp moc_ui_window.cpp
+compiler_moc_header_make_all: moc_ui_widget.cpp moc_ui_window.cpp moc_ufo_thread.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) moc_ui_widget.cpp moc_ui_window.cpp
+	-$(DEL_FILE) moc_ui_widget.cpp moc_ui_window.cpp moc_ufo_thread.cpp
 moc_ui_widget.cpp: ui_widget.h \
 		ufosim.h \
 		vertical.h \
@@ -427,6 +429,13 @@ moc_ui_window.cpp: ui_window.h \
 		moc_predefs.h \
 		/usr/lib/qt5/bin/moc
 	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/n0ne/GdP2/pa5/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/n0ne/GdP2/pa5 -I/home/n0ne/GdP2/pa5 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ui_window.h -o moc_ui_window.cpp
+
+moc_ufo_thread.cpp: ufo_thread.h \
+		ufo.h \
+		ufosim.h \
+		moc_predefs.h \
+		/usr/lib/qt5/bin/moc
+	/usr/lib/qt5/bin/moc $(DEFINES) --include /home/n0ne/GdP2/pa5/moc_predefs.h -I/usr/lib/x86_64-linux-gnu/qt5/mkspecs/linux-g++ -I/home/n0ne/GdP2/pa5 -I/home/n0ne/GdP2/pa5 -I/usr/include/x86_64-linux-gnu/qt5 -I/usr/include/x86_64-linux-gnu/qt5/QtWidgets -I/usr/include/x86_64-linux-gnu/qt5/QtGui -I/usr/include/x86_64-linux-gnu/qt5/QtCore -I/usr/include/c++/12 -I/usr/include/x86_64-linux-gnu/c++/12 -I/usr/include/c++/12/backward -I/usr/lib/gcc/x86_64-linux-gnu/12/include -I/usr/local/include -I/usr/include/x86_64-linux-gnu -I/usr/include ufo_thread.h -o moc_ufo_thread.cpp
 
 compiler_moc_objc_header_make_all:
 compiler_moc_objc_header_clean:
@@ -481,6 +490,9 @@ moc_ui_widget.o: moc_ui_widget.cpp
 
 moc_ui_window.o: moc_ui_window.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ui_window.o moc_ui_window.cpp
+
+moc_ufo_thread.o: moc_ufo_thread.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o moc_ufo_thread.o moc_ufo_thread.cpp
 
 ####### Install
 
