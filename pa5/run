@@ -2,4 +2,4 @@
 
 #Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
 
-g++ -Wall -std=c++20 route.cpp ufo_thread.cpp ballistic.cpp ufo.cpp vertical.cpp ufosim.cpp pa4_utest.cpp -o unittest -lboost_unit_test_framework && ./unittest --log_level=all
+qmake pa5_utest.pro && make clean && make && ./pa5_utest

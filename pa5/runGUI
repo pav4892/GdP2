@@ -2,4 +2,4 @@
 
 #Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
 
-qmake && make && ./pa5
+qmake && make clean && make && ./pa5
