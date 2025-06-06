@@ -3,3 +3,4 @@
 #Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
 
 qmake && make clean && make && ./pa5
+rm -rf *.o Makefile moc_* pa5 pa5_utest
