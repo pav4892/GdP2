@@ -97,7 +97,7 @@ class MainWidget : public QWidget
             pos1 << fixed << setprecision(2) << posStruct[0];
             pos2 << fixed << setprecision(2) << posStruct[1];
             pos3 << fixed << setprecision(2) << posStruct[2];
-            string infoLabelString = "\nFlight completed at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos2.str() + " meter\n";
+            string infoLabelString = "\nFlight completed at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos3.str() + " meter\n";
             infoLabel->setText(QString::fromStdString(infoLabelString));
 
             startButton->setText("Start");
@@ -112,7 +112,7 @@ class MainWidget : public QWidget
             pos2 << fixed << setprecision(2) << ufo->getPosition()[1];
             pos3 << fixed << setprecision(2) << ufo->getPosition()[2];
 
-            string infoLabelString = "\nStarted at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos2.str() + " meter\n";
+            string infoLabelString = "\nStarted at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos3.str() + " meter\n";
             infoLabel->setText(QString::fromStdString(infoLabelString));
 
 
