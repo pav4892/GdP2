@@ -2,5 +2,7 @@
 
 #Compiles and runs the unit test and the cpp code properly and links it and stuff and does some other stuff so that I can actually run the unit test
 
+printf "\n--------------------------------------------------------------------------------------------------\nDon't run this at the same time as the ./runGUI because it will delete the Build files if it is still in the build process while you do it\n--------------------------------------------------------------------------------------------------\\n\n"
+
 qmake pa5_utest.pro && make clean && make && ./pa5_utest
 rm -rf *.o Makefile moc_* pa5 pa5_utest

@@ -72,8 +72,7 @@ class MainWidget : public QWidget
 
         ~MainWidget()
         {
-            //delete ufo;
-            //delete uthread;
+            delete ufo;
 
             delete label1;
             delete label2;
@@ -87,6 +86,10 @@ class MainWidget : public QWidget
 
             delete startButton;
             delete infoLabel;
+        
+            
+
+            //delete uthread; // Not needed as it cleans up after itself in the destructor of ufo_thread.h
         }
 
     private slots:
@@ -162,6 +165,7 @@ class MainWidget : public QWidget
 
                 
             
+                /*
                 while(1) {
                     if(uthread->getIsFlying() == false) {
                         //startButton->setText("Start");
@@ -169,6 +173,8 @@ class MainWidget : public QWidget
                         break;
                     }
                 }
+                */
+                 
             };
         };
 
