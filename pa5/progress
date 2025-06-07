@@ -1,0 +1,9 @@
+route       | YES
+vertical    | YES
+ballistic   | YES
+ufo         | YES ausser waypoint?
+ufo_thread  | YES understand constructor
+ui_stuff    | No 3x files
+
+
+The rest is present, only check the things I noted here, dont worry

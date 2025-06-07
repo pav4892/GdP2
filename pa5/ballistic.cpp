@@ -39,8 +39,6 @@ const vector<float> Ballistic::firstWaypoint(const float x, const float y, const
 };
 
 const vector<float> Ballistic::secondWaypoint(const float x, const float y, const float height) const {
-  //return wayPoint(sim->getX(), sim->getY(), x, y, height, landingAngle); 
-  //return wayPoint(x, y, initialPosPreWaypointMove[0], initialPosPreWaypointMove[1], height, landingAngle); 
   return wayPoint(x, y, sim->getX(), sim->getY(), height, landingAngle); 
 };
 

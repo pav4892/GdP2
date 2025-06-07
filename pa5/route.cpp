@@ -7,14 +7,14 @@ using namespace std;
 Route::Route(const float pHeight, const function<float(float, float, float, float, float)> pDist) {
     height = pHeight;
     dist = pDist;
-    //Set destinations to an empty vector of correct dataype, we need this because of the destinations-to-pointer rewrrite thing and it will cause a segfault if we try to call it...(something smoething pointers)
-    destinations = new vector<pair<float, float>>;
+    //Set destinations to an empty vector of correct dataype, we need this because of the destinations-to-pointer rewrrite thing and it will cause a segfault if we try to call it...
+    destinations = new vector<pair<float, float>>; // 2D Vector, thats why we need the 'pair' thing because vector<float, float> is INVALID
 };
 
 // Move constructor
-Route::Route(Route&& other) noexcept {
+Route::Route(Route&& other) {
     height = other.height;
-    dist = std::move(other.dist);
+    dist = move(other.dist);
     destinations = other.destinations;
     other.destinations = nullptr;
 };
