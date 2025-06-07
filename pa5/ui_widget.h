@@ -72,8 +72,8 @@ class MainWidget : public QWidget
 
         ~MainWidget()
         {
-
-            //TODO Clean everything up here
+            //delete ufo;
+            //delete uthread;
 
             delete label1;
             delete label2;
