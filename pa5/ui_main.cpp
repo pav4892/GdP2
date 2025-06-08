@@ -7,7 +7,7 @@
 int main(int argc, char* argv[]) {
   QApplication app(argc, argv);
 
-  // Register std::vector<float> so Qt can use it wenn sending the signal with the coords to the main window after flight in ufo_thread.h
+  // Register std::vector<float> so Qt can use it wenn sending the signal with the coords to the main window after flight in ufo_thread.h, Source: Google
   qRegisterMetaType<std::vector<float>>("std::vector<float>");
 
   MainWindow w;

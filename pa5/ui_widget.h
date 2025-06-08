@@ -1,5 +1,5 @@
-#ifndef MAINWIDGET_H
-#define MAINWIDGET_H
+#ifndef UI_WIDGET_H
+#define UI_WIDGET_H
 
 #include <QMainWindow>
 #include <QtWidgets>
@@ -10,11 +10,10 @@
 
 class MainWidget : public QWidget
 {
-    Q_OBJECT
+    Q_OBJECT;
 
     public:
-        MainWidget(QMainWindow *parent = nullptr): QWidget(parent)
-        {
+        MainWidget(QMainWindow *parent = nullptr): QWidget(parent) {
 
             ufo = new Vertical("r2d2");
             uthread = new UfoThread(ufo);
@@ -35,7 +34,7 @@ class MainWidget : public QWidget
             inputSpeed->setFixedSize(150, 30);
 
             startButton = new QPushButton("Start");
-            startButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
+            startButton->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed); // Found online: Will make the button expand to the full width available to it
             startButton->setFixedHeight(40);
             
             connect(startButton, SIGNAL(clicked()), this, SLOT(startUfo()));
@@ -43,14 +42,14 @@ class MainWidget : public QWidget
 
             infoLabel = new QLabel("\n\n\n\n");
             infoLabel->setWordWrap(true);
-            infoLabel->setAlignment(Qt::AlignCenter);
+            infoLabel->setAlignment(Qt::AlignCenter); //text-align equivalent to css
             infoLabel->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Fixed);
 
             // Do the frame around it (is from moodle)
             infoLabel->setFrameShape(QFrame::Box);
             infoLabel->setFrameShadow(QFrame::Plain);
 
-            QGridLayout *formLayout = new QGridLayout();
+            QGridLayout *formLayout = new QGridLayout(); // layout for the inputs
             formLayout->addWidget(label1, 0, 0);
             formLayout->addWidget(inputX, 0, 1);
             formLayout->addWidget(label2, 1, 0);
@@ -61,7 +60,7 @@ class MainWidget : public QWidget
             formLayout->addWidget(inputSpeed, 3, 1);
             formLayout->setSpacing(10);
 
-            QVBoxLayout *mainLayout = new QVBoxLayout();
+            QVBoxLayout *mainLayout = new QVBoxLayout(); // main layout that stacks the boxes of the input-layout and the button and output QLables correctly on top of each other
             mainLayout->addLayout(formLayout);
             mainLayout->addStretch();
             mainLayout->addWidget(startButton);
@@ -70,8 +69,10 @@ class MainWidget : public QWidget
             setLayout(mainLayout);
         }
 
-        ~MainWidget()
-        {
+        ~MainWidget() {
+
+            // Free all the memory by deleting all instances of QT Objects created prior
+
             delete ufo;
 
             delete label1;
@@ -85,9 +86,7 @@ class MainWidget : public QWidget
             delete inputSpeed;
 
             delete startButton;
-            delete infoLabel;
-        
-            
+            delete infoLabel; 
 
             //delete uthread; // Not needed as it cleans up after itself in the destructor of ufo_thread.h
         }
@@ -95,13 +94,14 @@ class MainWidget : public QWidget
     private slots:
 
         void updateWindow(std::vector<float> posStruct) {
-            ostringstream pos1, pos2, pos3;
+            ostringstream pos1, pos2, pos3; // Found online: ostringstream can be used kinda like 'cout' but for building strings in this case and not outputting anything to console. We save the floats in there and then
+                                            // We can use the simple .str() interface to cast them to a string while building the Output that should be displayed next
 
-            pos1 << fixed << setprecision(2) << posStruct[0];
-            pos2 << fixed << setprecision(2) << posStruct[1];
+            pos1 << fixed << setprecision(2) << posStruct[0]; // fixed is from the std library and here it is used to set the float to a FIXED 2 digit limit. setpricision wants to be redirected into fixed before it can be stored
+            pos2 << fixed << setprecision(2) << posStruct[1]; 
             pos3 << fixed << setprecision(2) << posStruct[2];
             string infoLabelString = "\nFlight completed at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos3.str() + " meter\n";
-            infoLabel->setText(QString::fromStdString(infoLabelString));
+            infoLabel->setText(QString::fromStdString(infoLabelString)); // Has to be cast to a QString so it can be used by QT, in this case: in order to set the output text of the QLabel(infoLabel)
 
             startButton->setText("Start");
             startButton->setEnabled(true);
@@ -159,7 +159,7 @@ class MainWidget : public QWidget
 
                 startButton->setText("Flying");
                 startButton->setEnabled(false);
-                QApplication::processEvents(); // Forces the UI to update now
+                QApplication::processEvents(); // Forces the UI to update NOW, for some reason I need this or else in some cases it can lead to delays in the code
 
                 uthread->startUfo(x, y, height, speed);
 
@@ -197,5 +197,4 @@ class MainWidget : public QWidget
         QLabel *infoLabel;
 };
 
-#endif // MAINWIDGET_H
-
+#endif // UI_WIDGET_H

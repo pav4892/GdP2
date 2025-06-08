@@ -1,5 +1,5 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#ifndef UI_WINDOW_H
+#define UI_WINDOW_H
 
 #include <QMainWindow>
 #include "ui_widget.h"
@@ -28,5 +28,5 @@ private:
     MainWidget *mainwidget;
 };
 
-#endif // MAINWINDOW_H
+#endif // UI_WINDOW_H
 

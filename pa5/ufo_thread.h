@@ -6,7 +6,7 @@
 using namespace std;
 
 #include <QMetaType>
-Q_DECLARE_METATYPE(std::vector<float>) // I need this because else the connect signal that sends the coords to the window to display in the label at the bottom won't work because it doe;
+Q_DECLARE_METATYPE(std::vector<float>) // I need this because else the connect signal that sends the coords to the window to display in the label at the bottom won't work. Source: Google 
 
 class UfoThread : public QObject {
   Q_OBJECT;

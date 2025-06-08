@@ -1,10 +1,12 @@
 route       | YES
 vertical    | YES
 ballistic   | YES
-ufo         | YES ausser waypoint?
-ufo_thread  | YES understand constructor
-ui_widget   | NO
+ufo         | YES
+ufo_thread  | YES
+ui_stuff    | YES
 
 
-The rest is present, only check the things I noted here, dont worry
 Understand why and when it crashes
+understand constructor
+understand ufo.cpp->waypoint
+Understand total flow and order of call
