@@ -92,7 +92,7 @@ class MainWidget : public QWidget
             delete formLayout;
             delete mainLayout;
 
-            //delete uthread;
+            delete uthread;
                         
         };
 
