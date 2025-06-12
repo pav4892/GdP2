@@ -3,7 +3,8 @@
 
 #include <QMainWindow>
 #include <QtWidgets>
-#include <iomanip> // gives setprecision interface for float limit to 2 digits after komma
+#include <iomanip>  // gives setprecision interface for float limit to 2 digits after komma
+#include <unistd.h> // needed for _exit
 #include "ufosim.h"
 #include "vertical.h"
 #include "ufo_thread.h"
@@ -49,7 +50,7 @@ class MainWidget : public QWidget
             infoLabel->setFrameShape(QFrame::Box);
             infoLabel->setFrameShadow(QFrame::Plain);
 
-            QGridLayout *formLayout = new QGridLayout(); // layout for the inputs
+            formLayout = new QGridLayout(); // layout for the inputs
             formLayout->addWidget(label1, 0, 0);
             formLayout->addWidget(inputX, 0, 1);
             formLayout->addWidget(label2, 1, 0);
@@ -60,7 +61,7 @@ class MainWidget : public QWidget
             formLayout->addWidget(inputSpeed, 3, 1);
             formLayout->setSpacing(10);
 
-            QVBoxLayout *mainLayout = new QVBoxLayout(); // main layout that stacks the boxes of the input-layout and the button and output QLables correctly on top of each other
+            mainLayout = new QVBoxLayout(); // main layout that stacks the boxes of the input-layout and the button and output QLables correctly on top of each other
             mainLayout->addLayout(formLayout);
             mainLayout->addStretch();
             mainLayout->addWidget(startButton);
@@ -88,8 +89,12 @@ class MainWidget : public QWidget
             delete startButton;
             delete infoLabel; 
 
-            //delete uthread; // Not needed as it cleans up after itself in the destructor of ufo_thread.h
-        }
+            delete formLayout;
+            delete mainLayout;
+
+            //delete uthread;
+                        
+        };
 
     private slots:
 
@@ -195,6 +200,10 @@ class MainWidget : public QWidget
 
         QPushButton *startButton;
         QLabel *infoLabel;
+    
+        QGridLayout *formLayout;
+        QVBoxLayout *mainLayout;
+
 };
 
 #endif // UI_WIDGET_H

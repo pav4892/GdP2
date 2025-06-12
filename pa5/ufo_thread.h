@@ -49,7 +49,7 @@ public:
     return isFlying;
   };
 
-signals:
-  void stopped(std::vector<float>);
-};
+  signals:
+    void stopped(std::vector<float>);
+  };
 
