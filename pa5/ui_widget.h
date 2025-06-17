@@ -14,7 +14,8 @@ class MainWidget : public QWidget
     Q_OBJECT;
 
     public:
-        MainWidget(QMainWindow *parent = nullptr): QWidget(parent) {
+        MainWidget(QMainWindow *parent = nullptr): QWidget(parent) { // take optional parent param and pass it to the constructor of QWidget. This will receive a pointer to the ui_window.h class-instance and pass it to
+                                                                     // QT's-QWidget for building the UI
 
             ufo = new Vertical("r2d2");
             uthread = new UfoThread(ufo);
@@ -51,7 +52,7 @@ class MainWidget : public QWidget
             infoLabel->setFrameShadow(QFrame::Plain);
 
             formLayout = new QGridLayout(); // layout for the inputs
-            formLayout->addWidget(label1, 0, 0);
+            formLayout->addWidget(label1, 0, 0); //coords are in format y, x
             formLayout->addWidget(inputX, 0, 1);
             formLayout->addWidget(label2, 1, 0);
             formLayout->addWidget(inputY, 1, 1);
@@ -61,9 +62,9 @@ class MainWidget : public QWidget
             formLayout->addWidget(inputSpeed, 3, 1);
             formLayout->setSpacing(10);
 
-            mainLayout = new QVBoxLayout(); // main layout that stacks the boxes of the input-layout and the button and output QLables correctly on top of each other
+            mainLayout = new QVBoxLayout(); // main layout that stacks the boxes of the input-layout and the button and output QLables correctly on top of each other from top to bottom on a y-axis.
             mainLayout->addLayout(formLayout);
-            mainLayout->addStretch();
+            mainLayout->addStretch(); // Push elements in the direction of the the lower end of the window
             mainLayout->addWidget(startButton);
             mainLayout->addWidget(infoLabel);
 
@@ -73,6 +74,8 @@ class MainWidget : public QWidget
         ~MainWidget() {
 
             // Free all the memory by deleting all instances of QT Objects created prior
+        
+            delete uthread;
 
             delete ufo;
 
@@ -92,8 +95,6 @@ class MainWidget : public QWidget
             delete formLayout;
             delete mainLayout;
 
-            delete uthread;
-                        
         };
 
     private slots:
@@ -106,7 +107,7 @@ class MainWidget : public QWidget
             pos2 << fixed << setprecision(2) << posStruct[1]; 
             pos3 << fixed << setprecision(2) << posStruct[2];
             string infoLabelString = "\nFlight completed at\nPosition:\n" + pos1.str() + " | " +  pos2.str() + " | " + pos3.str() + " meter\n";
-            infoLabel->setText(QString::fromStdString(infoLabelString)); // Has to be cast to a QString so it can be used by QT, in this case: in order to set the output text of the QLabel(infoLabel)
+            infoLabel->setText(QString::fromStdString(infoLabelString)); // Has to be cast to a QString so it can be used by QT, in this case: in order to set the output text of the QLabel(infoLabel), Source: Google
 
             startButton->setText("Start");
             startButton->setEnabled(true);
@@ -126,7 +127,7 @@ class MainWidget : public QWidget
 
             // Get and Cast the QStrings to the appropriate datatypes for use in uthread's startUfo() function later
             
-            // We pass a declared but uninitialised boolean to the toFloat function as error detection because it will set it to false if there is a problem with the conversion and dont have to deal with try catch. Source: google
+            // We pass a declared but uninitialised boolean to the toFloat function as error detection because it will set it to false if there is a problem with the conversion and dont have to deal with try catch. idea Source: google
 
             bool okX;
             QString xStr = inputX->text();
@@ -164,7 +165,7 @@ class MainWidget : public QWidget
 
                 startButton->setText("Flying");
                 startButton->setEnabled(false);
-                QApplication::processEvents(); // Forces the UI to update NOW, for some reason I need this or else in some cases it can lead to delays in the code
+                QApplication::processEvents(); // Forces the UI to update NOW, for some reason I need this or else in some cases it can lead to delays in the diplay of the changes in code in the UI
 
                 uthread->startUfo(x, y, height, speed);
 

@@ -23,13 +23,17 @@ private:
   };
 
 public:
-  UfoThread(Ufo* pUfo): flyThread(nullptr), ufo(pUfo) {};
+  UfoThread(Ufo* pUfo) {
+    flyThread = nullptr;
+    ufo = pUfo;
+  };
 
   ~UfoThread() {
     if (flyThread != nullptr) {
       flyThread->join();
       delete flyThread;
       flyThread = nullptr;
+      
     }
     isFlying = false;
   };
@@ -42,7 +46,7 @@ public:
     };
 
     isFlying = true;
-    flyThread = new std::thread(&UfoThread::runner, this, x, y, height, speed);
+    flyThread = new std::thread(&UfoThread::runner, this, x, y, height, speed); // We need to pass along `this` because the thread needs to be able to interact with this instance of the ufo_thread and its variables etc etc
   };
 
   bool getIsFlying() const {

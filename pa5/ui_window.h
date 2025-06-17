@@ -15,7 +15,7 @@ public:
         setWindowTitle("Ufo");
         setWindowIcon(icon);
         resize(50, 250);
-        mainwidget = new MainWidget(this);
+        mainwidget = new MainWidget(this); //from ui_widget.h and we pass a this class-instance-pointer to it
         setCentralWidget(mainwidget);
     }
 

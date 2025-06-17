@@ -6,11 +6,6 @@ using namespace std;
 //If a class inherits another class the Constructor of the class that is inherited needs to be noted here as follows
 Ballistic::Ballistic(const string& pld, const float pTakeOffAngle, const float pLandingAngle) : Ufo(pld) { 
 
-
-  initialPosPreWaypointMove[0] = sim->getX();
-  initialPosPreWaypointMove[1] = sim->getY();
-
-
   if(0 < pTakeOffAngle && pTakeOffAngle <= 90) {
     takeOffAngle = pTakeOffAngle;
   } else {

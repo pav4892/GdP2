@@ -1,0 +1,1 @@
+rm -rf *.o Makefile moc_* pa5 pa5_utest

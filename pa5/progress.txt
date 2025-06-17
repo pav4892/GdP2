@@ -1,0 +1,9 @@
+route       | YES
+vertical    | YES
+ballistic   | YES
+ufo         | YES
+ufo_thread  | YES
+ui_stuff    | YES
+
+
+Understand why and when it crashes => e.g. when it lands too fast

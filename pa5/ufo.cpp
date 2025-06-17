@@ -35,7 +35,7 @@ float Ufo::getFtime() const {
 const vector<float> Ufo::wayPoint(const float x1, const float y1, const float x2, const float y2, const float h, const float phi) {
 
   // Ziel der funktion: Punkt B (vector<float> coord(2) hier) so setzen das mit dem angewendeten h sich der Winkel phi ergibt. Es wird also die 2 Waypoints(einer pro aufrauf) berechnet die das Ufo bei der Flugsimulation ansteuert bevor
-  // er das Ziel erreicht.
+  // er das Ziel erreicht. Quelle der Funktion: Teilweise durch Internetquellen unterstuetzt
   //
   // Der Punkt B liegte auf der Strecke A(x1,y1) und D(x2, y2) und er soll so bestimmt und returned werden, dass das Dreieck ABh den Winkel 'phi' und die Hoehe 'h' hat.
 

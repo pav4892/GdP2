@@ -6,5 +6,5 @@
 
 printf "\n--------------------------------------------------------------------------------------------------\nDon't run this at the same time as the ./runGUI because it will delete the Build files if it is still in the build process while you do it\n--------------------------------------------------------------------------------------------------\\n\n"
 
-qmake && make clean && make && ./pa5
+qmake pa5.pro && make clean && make && ./pa5
 rm -rf *.o Makefile moc_* pa5 pa5_utest

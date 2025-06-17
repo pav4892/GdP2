@@ -32,7 +32,7 @@ Route::~Route() {
 };
 
 void Route::add(const float destX, const float destY) {
-    destinations->emplace_back(destX, destY);
+    destinations->emplace_back(destX, destY); // push back to end of vector
 };
 
 const vector<pair<float, float>>& Route::getDestinations() const {
@@ -73,7 +73,7 @@ float Route::distance() const {
     distanceTotal += dist(destinations->back().first, destinations->back().second, 0.0f, 0.0f, height);
 
     return distanceTotal;
-}
+};
 
 const Route Route::shortestRoute() const {
     if (destinations->empty()) return *this;
@@ -90,27 +90,19 @@ const Route Route::shortestRoute() const {
 
         for (size_t i = 0; i < currentDestinations.size() - 1; ++i) {
             tempDist += dist(currentDestinations[i].first, currentDestinations[i].second, currentDestinations[i + 1].first, currentDestinations[i + 1].second, height);
-        }
+        };
 
         tempDist += dist(currentDestinations.back().first, currentDestinations.back().second, 0.0f, 0.0f, height);
 
         if (tempDist < bestDist) {
             bestDist = tempDist;
             bestDestinations = currentDestinations;
-        }
-    } 
-
-    /*
-    Route best(height, dist);
-    for (const auto& p : bestDestinations) {
-        best.add(p.first, p.second);
-    };
-    */
+        };
+    }; 
 
     Route best(move(*this)); // use copy(Move constructor now because of pa5-a)  is more efficent  ) constructor instead of doing the loop thing because I think he want's me to do it that way...
 
     (*best.destinations) = bestDestinations;
 
     return best;
-}
-
+};
